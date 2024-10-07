@@ -32,7 +32,7 @@ love.audio = {}
 --- Extended information can be found in the chapter "3.4. Attenuation By Distance" of the OpenAL 1.1 specification.
 
 --- @alias DistanceModel ---
----|>"none"					# Sources do not get attenuated.
+---| "none"					# Sources do not get attenuated.
 ---| "inverse"				# Inverse distance attenuation.
 ---| "inverseclamped"		# Inverse distance attenuation. Gain is clamped. In version 0.9.2 and older this is named inverse clamped.
 ---| "linear"				# Linear attenuation.
