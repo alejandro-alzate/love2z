@@ -1,8 +1,5 @@
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L2SNDWO)
-
 # *love2z*
-
-Typing hints for the [zed](https://zed.dev/) Editor
+Typing hints for the [Zed](https://zed.dev/) Editor
 
 ## Roadmap
 This is the things that have typing hints for the moment
@@ -30,3 +27,5 @@ This is the things that have typing hints for the moment
 - [ ] [lua-enet](./src/lua-enet.lua)
 - [ ] [luasocket](./src/luasocket.lua)
 - [ ] [uft8](./src/uft8.lua)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L2SNDWO)
