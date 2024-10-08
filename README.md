@@ -1,6 +1,9 @@
 # *love2z*
 Typing hints for the [Zed](https://zed.dev/) Editor
 
+## To do:
+- [ ] [love2doc](https://github.com/alejandro-alzate/love2doc) to [love2z](https://github.com/alejandro-alzate/love2z) parser
+
 ## Roadmap
 This is the things that have typing hints for the moment
 
