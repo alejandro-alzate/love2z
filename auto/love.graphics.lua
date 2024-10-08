@@ -1,81 +1,10 @@
---- The primary responsibility for the love.graphics module is the drawing of lines, shapes, text, Images and other Drawable objects onto the screen. Its secondary responsibilities include loading external files (including Images and Fonts) into memory, creating specialized objects (such as ParticleSystems or Canvases) and managing screen geometry.
-love.graphics = {}
---- @class Canvas: Object
----| Off-screen render target.
----|
----> ***Available since LÖVE 0.8.0***
----|
----| This class is not supported in earlier versions.
-
---- @class Drawable: Object
----| Superclass for all things that can be drawn on screen.
-
---- @class Font: Object
----| Defines the shape of characters than can be drawn onto the screen.
-
---- @class Framebuffer: Object
----| Off-screen render target.
----|
----> ***Available since LÖVE 0.7.0***
----|
----> ***Removed in LÖVE 0.8.0***
----|
----| This class is not supported in that and later versions.
-
---- @class Image: Object, Drawable
----| Drawable image type.
-
---- @class Mesh: Object, Drawable
----| A 2D polygon mesh used for drawing arbitrary textured shapes.
----|
----> ***Available since LÖVE 0.9.0***
----|
----| This class is not supported in earlier versions.
-
---- @class ParticleSystem: Object, Drawable
----| Used to create cool effects, like fire.
-
---- @class PixelEffect: Object
----| Pixel shader effect.
----|
----> ***Available since LÖVE 0.8.0***
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This class is not supported in that and later versions.
-
---- @class Quad: Object
----| A quadrilateral with texture coordinate information.
-
---- @class Shader: Object
----| Shader effect.
----|
----> ***Available since LÖVE 0.9.0***
----|
----| This class is not supported in earlier versions.
---- @class SpriteBatch: Object, Drawable
----| Store image positions in a buffer, and draw it in one call.
---- @class Text: Object, Drawable
----| Drawable text.
----|
----> ***Available since LÖVE 0.10.0***
----|
----| This class is not supported in earlier versions.
-
---- @class Texture: Object
----| Superclass for drawable objects which represent a texture.
----|
----> ***Available since LÖVE 0.9.1***
----|
----| This class is not supported in earlier versions.
-
---- @class Video: Object, Drawable
----| A drawable video.
----|
----> ***Available since LÖVE 0.10.0***
----|
----| This class is not supported in earlier versions.
----
+--- @param x number
+--- @param y number
+--- @param radius number
+--- @param angle1 number
+--- @param angle2 number
+--- @param segments number?
+--- @param arcType ArcType?
 function love.graphics.arc(x, y, radius, angle1, angle2, segments, arcType) end
 
 ---| Draws an arc.
@@ -83,9 +12,17 @@ function love.graphics.arc(x, y, radius, angle1, angle2, segments, arcType) end
 ---> ***Available since LÖVE 0.8.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x number
+--- @param y number
+--- @param radius number
+--- @param segments number?
 function love.graphics.circle(x, y, radius, segments) end
 
 ---| Draws a circle.
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param a number?
 function love.graphics.clear(r, g, b, a) end
 
 ---| Clears the screen or active Canvas to the specified color.
@@ -96,9 +33,21 @@ function love.graphics.discard() end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param drawable Drawable
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Draws objects on screen.
+--- @param mesh Mesh
+--- @param instances table
 function love.graphics.drawInstanced(mesh, instances) end
 
 ---| Draws many instances of a Mesh with a single draw call, using hardware geometry instancing.
@@ -106,6 +55,17 @@ function love.graphics.drawInstanced(mesh, instances) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param arrayImage Image
+--- @param layer number
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.drawLayer(arrayImage, layer, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Draws a layer of an Array Texture.
@@ -113,6 +73,17 @@ function love.graphics.drawLayer(arrayImage, layer, x, y, r, sx, sy, ox, oy, kx,
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param quad Quad
+--- @param image Image
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.drawq(quad, image, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Draw a Quad with the specified Image on screen.
@@ -120,6 +91,11 @@ function love.graphics.drawq(quad, image, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param x number
+--- @param y number
+--- @param a number
+--- @param b number
+--- @param segments number?
 function love.graphics.ellipse(x, y, a, b, segments) end
 
 ---| Draws an ellipse.
@@ -134,9 +110,16 @@ function love.graphics.flushBatch() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x1 number
+--- @param y1 number
+--- @param x2 number
+--- @param y2 number
+--- @param ... number
 function love.graphics.line(x1, y1, x2, y2, ...) end
 
 ---| Draws lines between points.
+--- @param x number
+--- @param y number
 function love.graphics.point(x, y) end
 
 ---| Draws a point.
@@ -146,6 +129,9 @@ function love.graphics.point(x, y) end
 ---> ***Removed in LÖVE 0.10.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param x number
+--- @param y number
+--- @param ... number
 function love.graphics.points(x, y, ...) end
 
 ---| Draws one or more points.
@@ -153,6 +139,11 @@ function love.graphics.points(x, y, ...) end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x1 number
+--- @param y1 number
+--- @param x2 number
+--- @param y2 number
+--- @param ... number
 function love.graphics.polygon(x1, y1, x2, y2, ...) end
 
 ---| Draw a polygon.
@@ -163,12 +154,45 @@ function love.graphics.polygon(x1, y1, x2, y2, ...) end
 function love.graphics.present() end
 
 ---| Displays the results of drawing operations on the screen.
+--- @param string string
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.print(string, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Draws text on screen. If no Font is set, one will be created and set (once) if needed.
+--- @param string string
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
+--- @param wrapWidth number?
+--- @param align AlignMode?
 function love.graphics.printf(string, x, y, r, sx, sy, ox, oy, kx, ky, wrapWidth, align) end
 
 ---| Draws formatted text, with word wrap and alignment.
+--- @param quad Quad
+--- @param image Image
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.quad(quad, image, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Draws a quadrilateral shape.
@@ -176,6 +200,11 @@ function love.graphics.quad(quad, image, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param x number
+--- @param y number
+--- @param width number
+--- @param height number
+--- @param r number?
 function love.graphics.rectangle(x, y, width, height, r) end
 
 ---| Draws a rectangle.
@@ -183,6 +212,16 @@ function love.graphics.rectangle(x, y, width, height, r) end
 ---> ***Available since LÖVE 0.3.2***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param drawable Drawable
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.stencil(drawable, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Draws geometry as a stencil.
@@ -190,6 +229,12 @@ function love.graphics.stencil(drawable, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x1 number
+--- @param y1 number
+--- @param x2 number
+--- @param y2 number
+--- @param x3 number
+--- @param y3 number
 function love.graphics.triangle(x1, y1, x2, y2, x3, y3) end
 
 ---| Draws a triangle.
@@ -198,6 +243,7 @@ function love.graphics.triangle(x1, y1, x2, y2, x3, y3) end
 ---|
 ---| This function is not supported in that and later versions.
 ---
+--- @param filename string
 function love.graphics.captureScreenshot(filename) end
 
 ---| Creates a screenshot once the current frame is done.
@@ -205,6 +251,9 @@ function love.graphics.captureScreenshot(filename) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param width number
+--- @param height number
+--- @param format ImageFormat?
 function love.graphics.newArrayImage(width, height, format) end
 
 ---| Creates a new array Image.
@@ -212,6 +261,10 @@ function love.graphics.newArrayImage(width, height, format) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param width number
+--- @param height number
+--- @param format CanvasFormat?
+--- @param mipmapMode MipmapMode?
 function love.graphics.newCanvas(width, height, format, mipmapMode) end
 
 ---| Creates a new Canvas.
@@ -219,6 +272,8 @@ function love.graphics.newCanvas(width, height, format, mipmapMode) end
 ---> ***Available since LÖVE 0.8.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param size number
+--- @param format ImageFormat?
 function love.graphics.newCubeImage(size, format) end
 
 ---| Creates a new cubemap Image.
@@ -226,9 +281,14 @@ function love.graphics.newCubeImage(size, format) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param filename string
+--- @param size number?
 function love.graphics.newFont(filename, size) end
 
 ---| Creates a new Font from a TrueType Font or BMFont file.
+--- @param width number
+--- @param height number
+--- @param format FramebufferFormat?
 function love.graphics.newFramebuffer(width, height, format) end
 
 ---| Creates a new Framebuffer.
@@ -238,9 +298,14 @@ function love.graphics.newFramebuffer(width, height, format) end
 ---> ***Removed in LÖVE 0.8.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param filename string
+--- @param flags ImageFlags?
 function love.graphics.newImage(filename, flags) end
 
 ---| Creates a new Image.
+--- @param filename string
+--- @param glyphs string
+--- @param extraSpacing number?
 function love.graphics.newImageFont(filename, glyphs, extraSpacing) end
 
 ---| Creates a new Font by loading a specifically formatted image.
@@ -248,6 +313,12 @@ function love.graphics.newImageFont(filename, glyphs, extraSpacing) end
 ---> ***Available since LÖVE 0.2.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param vertices table
+--- @param indices table
+--- @param mode DrawMode
+--- @param attributeData table?
+--- @param attributeTypes table?
+--- @param bufferDataUsage BufferDataUsage?
 function love.graphics.newMesh(vertices, indices, mode, attributeData, attributeTypes, bufferDataUsage) end
 
 ---| Creates a new Mesh.
@@ -255,9 +326,12 @@ function love.graphics.newMesh(vertices, indices, mode, attributeData, attribute
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param image Image
+--- @param speed number
 function love.graphics.newParticleSystem(image, speed) end
 
 ---| Creates a new ParticleSystem.
+--- @param code string
 function love.graphics.newPixelEffect(code) end
 
 ---| Creates a new PixelEffect.
@@ -267,6 +341,12 @@ function love.graphics.newPixelEffect(code) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param left number
+--- @param top number
+--- @param width number
+--- @param height number
+--- @param imageWidth number?
+--- @param imageHeight number?
 function love.graphics.newQuad(left, top, width, height, imageWidth, imageHeight) end
 
 ---| Creates a new Quad.
@@ -277,6 +357,8 @@ function love.graphics.newScreenshot() end
 ---> ***Removed in LÖVE 11.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param vertexCode string
+--- @param fragmentCode string
 function love.graphics.newShader(vertexCode, fragmentCode) end
 
 ---| Creates a new Shader.
@@ -284,6 +366,9 @@ function love.graphics.newShader(vertexCode, fragmentCode) end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param image Image
+--- @param maxQuads number
+--- @param bufferDataUsage BufferDataUsage?
 function love.graphics.newSpriteBatch(image, maxQuads, bufferDataUsage) end
 
 ---| Creates a new SpriteBatch.
@@ -296,6 +381,8 @@ function love.graphics.newStencil() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param string string
+--- @param font Font?
 function love.graphics.newText(string, font) end
 
 ---| Creates a new drawable Text object.
@@ -303,6 +390,8 @@ function love.graphics.newText(string, font) end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param filename string
+--- @param flags VideoFlags?
 function love.graphics.newVideo(filename, flags) end
 
 ---| Creates a new Video.
@@ -310,6 +399,9 @@ function love.graphics.newVideo(filename, flags) end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param width number
+--- @param height number
+--- @param format ImageFormat?
 function love.graphics.newVolumeImage(width, height, format) end
 
 ---| Creates a new volume Image.
@@ -317,6 +409,8 @@ function love.graphics.newVolumeImage(width, height, format) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param filename string
+--- @param size number?
 function love.graphics.setNewFont(filename, size) end
 
 ---| Creates and sets a new Font.
@@ -324,6 +418,8 @@ function love.graphics.setNewFont(filename, size) end
 ---> ***Available since LÖVE 0.8.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param vertexCode string
+--- @param fragmentCode string
 function love.graphics.validateShader(vertexCode, fragmentCode) end
 
 ---| Validates shader code.
@@ -335,6 +431,15 @@ function love.graphics.validateShader(vertexCode, fragmentCode) end
 function love.graphics.getBackgroundColor() end
 
 ---| Gets the current background color.
+--- @return number
+--- @return number
+--- @return number
+--- @return number
+function love.graphics.getBackgroundColor() end
+
+---| Gets the current background color.
+--- @return BlendMode
+--- @return BlendAlphaMode?
 function love.graphics.getBlendMode() end
 
 ---| Gets the blending mode.
@@ -342,6 +447,7 @@ function love.graphics.getBlendMode() end
 ---> ***Available since LÖVE 0.2.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return Canvas?
 function love.graphics.getCanvas() end
 
 ---| Returns the current target Canvas.
@@ -349,9 +455,17 @@ function love.graphics.getCanvas() end
 ---> ***Available since LÖVE 0.8.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return number
+--- @return number
+--- @return number
+--- @return number
 function love.graphics.getColor() end
 
 ---| Gets the current color.
+--- @return number
+--- @return number
+--- @return number
+--- @return number
 function love.graphics.getColorMask() end
 
 ---| Gets the active color components used when drawing.
@@ -359,6 +473,7 @@ function love.graphics.getColorMask() end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return ColorMode
 function love.graphics.getColorMode() end
 
 ---| Gets the color mode (which controls how images are affected by the current color).
@@ -368,6 +483,8 @@ function love.graphics.getColorMode() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return Filter
+--- @return Filter
 function love.graphics.getDefaultFilter() end
 
 ---| Returns the default scaling filters used with Images, Canvases, and Fonts.
@@ -375,6 +492,8 @@ function love.graphics.getDefaultFilter() end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return Filter
+--- @return Filter
 function love.graphics.getDefaultImageFilter() end
 
 ---| Returns the default scaling filters.
@@ -384,6 +503,8 @@ function love.graphics.getDefaultImageFilter() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return DepthMode
+--- @return boolean
 function love.graphics.getDepthMode() end
 
 ---| Gets the current depth test mode and whether writing to the depth buffer is enabled.
@@ -391,6 +512,7 @@ function love.graphics.getDepthMode() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return Font?
 function love.graphics.getFont() end
 
 ---| Gets the current Font object.
@@ -398,6 +520,7 @@ function love.graphics.getFont() end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return FrontFaceWinding
 function love.graphics.getFrontFaceWinding() end
 
 ---| Gets whether triangles with clockwise- or counterclockwise-ordered vertices are considered front-facing.
@@ -405,9 +528,12 @@ function love.graphics.getFrontFaceWinding() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return LineJoin
 function love.graphics.getLineJoin() end
 
 ---| Gets the line join style.
+--- @return number
+--- @return number
 function love.graphics.getLineStipple() end
 
 ---| Gets the current line stipple.
@@ -415,6 +541,7 @@ function love.graphics.getLineStipple() end
 ---> ***Removed in LÖVE 0.8.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return LineStyle
 function love.graphics.getLineStyle() end
 
 ---| Gets the line style.
@@ -422,6 +549,7 @@ function love.graphics.getLineStyle() end
 ---> ***Available since LÖVE 0.3.2***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return number
 function love.graphics.getLineWidth() end
 
 ---| Gets the current line width.
@@ -429,6 +557,7 @@ function love.graphics.getLineWidth() end
 ---> ***Available since LÖVE 0.3.2***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return MeshCullMode
 function love.graphics.getMeshCullMode() end
 
 ---| Gets whether back-facing triangles in a Mesh are culled.
@@ -436,6 +565,7 @@ function love.graphics.getMeshCullMode() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return PixelEffect?
 function love.graphics.getPixelEffect() end
 
 ---| Returns the current PixelEffect.
@@ -445,9 +575,11 @@ function love.graphics.getPixelEffect() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return number
 function love.graphics.getPointSize() end
 
 ---| Gets the point size.
+--- @return PointStyle
 function love.graphics.getPointStyle() end
 
 ---| Gets the current point style.
@@ -455,6 +587,10 @@ function love.graphics.getPointStyle() end
 ---> ***Removed in LÖVE 0.10.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return number
+--- @return number
+--- @return number
+--- @return number
 function love.graphics.getScissor() end
 
 ---| Gets the current scissor box.
@@ -462,6 +598,7 @@ function love.graphics.getScissor() end
 ---> ***Available since LÖVE 0.4.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return Shader?
 function love.graphics.getShader() end
 
 ---| Gets the current Shader.
@@ -469,6 +606,7 @@ function love.graphics.getShader() end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return number
 function love.graphics.getStackDepth() end
 
 ---| Gets the current depth of the transform / state stack (the number of pushes without corresponding pops).
@@ -476,6 +614,12 @@ function love.graphics.getStackDepth() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return StencilTestCompareMode
+--- @return StencilTestAction
+--- @return StencilTestAction
+--- @return StencilTestAction
+--- @return number
+--- @return number
 function love.graphics.getStencilTest() end
 
 ---| Gets the current stencil test configuration.
@@ -483,6 +627,10 @@ function love.graphics.getStencilTest() end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x number
+--- @param y number
+--- @param width number
+--- @param height number
 function love.graphics.intersectScissor(x, y, width, height) end
 
 ---| Sets the scissor to the rectangle created by the intersection of the specified rectangle with the existing scissor.
@@ -504,6 +652,7 @@ function love.graphics.isGammaCorrect() end
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param feature string
 function love.graphics.isSupported(feature) end
 
 ---| Checks for the support of graphics related functions.
@@ -523,9 +672,15 @@ function love.graphics.isWireframe() end
 function love.graphics.reset() end
 
 ---| Resets the current graphics settings.
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param a number?
 function love.graphics.setBackgroundColor(r, g, b, a) end
 
 ---| Sets the background color.
+--- @param mode BlendMode
+--- @param alphaMode BlendAlphaMode?
 function love.graphics.setBlendMode(mode, alphaMode) end
 
 ---| Sets the blending mode.
@@ -533,6 +688,7 @@ function love.graphics.setBlendMode(mode, alphaMode) end
 ---> ***Available since LÖVE 0.2.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param canvas Canvas?
 function love.graphics.setCanvas(canvas) end
 
 ---| Captures drawing operations to a Canvas
@@ -540,9 +696,17 @@ function love.graphics.setCanvas(canvas) end
 ---> ***Available since LÖVE 0.8.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param a number?
 function love.graphics.setColor(r, g, b, a) end
 
 ---| Sets the color used for drawing.
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param a number?
 function love.graphics.setColorMask(r, g, b, a) end
 
 ---| Sets the color mask. Enables or disables specific color components when rendering.
@@ -550,6 +714,7 @@ function love.graphics.setColorMask(r, g, b, a) end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param mode ColorMode
 function love.graphics.setColorMode(mode) end
 
 ---| Sets the color mode (which controls how images are affected by the current color).
@@ -559,6 +724,8 @@ function love.graphics.setColorMode(mode) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param filter Filter
+--- @param filter Filter
 function love.graphics.setDefaultFilter(filter, filter) end
 
 ---| Sets the default scaling filters used with Images, Canvases, and Fonts.
@@ -566,6 +733,8 @@ function love.graphics.setDefaultFilter(filter, filter) end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param filter Filter
+--- @param filter Filter
 function love.graphics.setDefaultImageFilter(filter, filter) end
 
 ---| Sets the default scaling filters.
@@ -575,6 +744,8 @@ function love.graphics.setDefaultImageFilter(filter, filter) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param mode DepthMode
+--- @param write boolean
 function love.graphics.setDepthMode(mode, write) end
 
 ---| Configures depth testing and writing to the depth buffer.
@@ -582,9 +753,11 @@ function love.graphics.setDepthMode(mode, write) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param font Font?
 function love.graphics.setFont(font) end
 
 ---| Set an already-loaded Font as the current font.
+--- @param winding FrontFaceWinding
 function love.graphics.setFrontFaceWinding(winding) end
 
 ---| Sets whether triangles with clockwise- or counterclockwise-ordered vertices are considered front-facing.
@@ -592,6 +765,16 @@ function love.graphics.setFrontFaceWinding(winding) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param drawable Drawable
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.setInvertedStencil(drawable, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Defines an inverted stencil.
@@ -601,6 +784,8 @@ function love.graphics.setInvertedStencil(drawable, x, y, r, sx, sy, ox, oy, kx,
 ---> ***Removed in LÖVE 0.10.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param width number
+--- @param style LineStyle
 function love.graphics.setLine(width, style) end
 
 ---| Sets the line width and style.
@@ -608,9 +793,12 @@ function love.graphics.setLine(width, style) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param join LineJoin
 function love.graphics.setLineJoin(join) end
 
 ---| Sets the line join style.
+--- @param factor number
+--- @param pattern number
 function love.graphics.setLineStipple(factor, pattern) end
 
 ---| Sets the line stipple pattern.
@@ -618,6 +806,7 @@ function love.graphics.setLineStipple(factor, pattern) end
 ---> ***Removed in LÖVE 0.8.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param style LineStyle
 function love.graphics.setLineStyle(style) end
 
 ---| Sets the line style.
@@ -625,6 +814,7 @@ function love.graphics.setLineStyle(style) end
 ---> ***Available since LÖVE 0.3.2***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param width number
 function love.graphics.setLineWidth(width) end
 
 ---| Sets the line width.
@@ -632,6 +822,7 @@ function love.graphics.setLineWidth(width) end
 ---> ***Available since LÖVE 0.3.2***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param mode MeshCullMode
 function love.graphics.setMeshCullMode(mode) end
 
 ---| Sets whether back-facing triangles in a Mesh are culled.
@@ -639,6 +830,7 @@ function love.graphics.setMeshCullMode(mode) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param effect PixelEffect?
 function love.graphics.setPixelEffect(effect) end
 
 ---| Routes drawing operations through a pixel shader.
@@ -648,6 +840,8 @@ function love.graphics.setPixelEffect(effect) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param size number
+--- @param style PointStyle
 function love.graphics.setPoint(size, style) end
 
 ---| Sets the point size and style.
@@ -655,9 +849,11 @@ function love.graphics.setPoint(size, style) end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param size number
 function love.graphics.setPointSize(size) end
 
 ---| Sets the point size.
+--- @param style PointStyle
 function love.graphics.setPointStyle(style) end
 
 ---| Sets the point style.
@@ -665,6 +861,7 @@ function love.graphics.setPointStyle(style) end
 ---> ***Removed in LÖVE 0.10.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param framebuffer Framebuffer?
 function love.graphics.setRenderTarget(framebuffer) end
 
 ---| Captures drawing operations to a Framebuffer
@@ -674,6 +871,10 @@ function love.graphics.setRenderTarget(framebuffer) end
 ---> ***Removed in LÖVE 0.8.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param x number
+--- @param y number
+--- @param width number
+--- @param height number
 function love.graphics.setScissor(x, y, width, height) end
 
 ---| Sets or disables scissor.
@@ -681,6 +882,7 @@ function love.graphics.setScissor(x, y, width, height) end
 ---> ***Available since LÖVE 0.4.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param shader Shader?
 function love.graphics.setShader(shader) end
 
 ---| Routes drawing operations through a shader.
@@ -688,6 +890,16 @@ function love.graphics.setShader(shader) end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param drawable Drawable
+--- @param x number?
+--- @param y number?
+--- @param r number?
+--- @param sx number?
+--- @param sy number?
+--- @param ox number?
+--- @param oy number?
+--- @param kx number?
+--- @param ky number?
 function love.graphics.setStencil(drawable, x, y, r, sx, sy, ox, oy, kx, ky) end
 
 ---| Defines or releases a stencil.
@@ -697,6 +909,12 @@ function love.graphics.setStencil(drawable, x, y, r, sx, sy, ox, oy, kx, ky) end
 ---> ***Removed in LÖVE 0.10.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @param compareMode StencilTestCompareMode
+--- @param action StencilTestAction
+--- @param action StencilTestAction
+--- @param action StencilTestAction
+--- @param reference number
+--- @param mask number
 function love.graphics.setStencilTest(compareMode, action, action, action, reference, mask) end
 
 ---| Configures or disables stencil testing.
@@ -704,6 +922,7 @@ function love.graphics.setStencilTest(compareMode, action, action, action, refer
 ---> ***Available since LÖVE 0.10.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param enable boolean
 function love.graphics.setWireframe(enable) end
 
 ---| Sets whether wireframe lines will be used when drawing.
@@ -712,6 +931,7 @@ function love.graphics.setWireframe(enable) end
 ---|
 ---| This function is not supported in earlier versions.
 ---
+--- @param transform Transform
 function love.graphics.applyTransform(transform) end
 
 ---| Applies the given Transform object to the current coordinate transformation.
@@ -719,6 +939,8 @@ function love.graphics.applyTransform(transform) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x number
+--- @param y number
 function love.graphics.inverseTransformPoint(x, y) end
 
 ---| Converts the given 2D position from screen-space into global coordinates.
@@ -736,9 +958,11 @@ function love.graphics.origin() end
 function love.graphics.pop() end
 
 ---| Pops the current coordinate transformation from the transformation stack.
+--- @param stackType StackType?
 function love.graphics.push(stackType) end
 
 ---| Copies and pushes the current coordinate transformation to the transformation stack.
+--- @param transform Transform
 function love.graphics.replaceTransform(transform) end
 
 ---| Replaces the current coordinate transformation with the given Transform object.
@@ -746,12 +970,17 @@ function love.graphics.replaceTransform(transform) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param angle number
 function love.graphics.rotate(angle) end
 
 ---| Rotates the coordinate system in two dimensions.
+--- @param scaleX number
+--- @param scaleY number?
 function love.graphics.scale(scaleX, scaleY) end
 
 ---| Scales the coordinate system in two dimensions.
+--- @param xShear number
+--- @param yShear number?
 function love.graphics.shear(xShear, yShear) end
 
 ---| Shears the coordinate system.
@@ -759,6 +988,8 @@ function love.graphics.shear(xShear, yShear) end
 ---> ***Available since LÖVE 0.8.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x number
+--- @param y number
 function love.graphics.transformPoint(x, y) end
 
 ---| Converts the given 2D position from global coordinates into screen-space.
@@ -766,10 +997,15 @@ function love.graphics.transformPoint(x, y) end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @param x number
+--- @param y number
 function love.graphics.translate(x, y) end
 
 ---| Translates the coordinate system in two dimensions.
 ---
+--- @param width number
+--- @param height number
+--- @param fullscreen boolean
 function love.graphics.checkMode(width, height, fullscreen) end
 
 ---| Checks if a display mode is supported.
@@ -784,6 +1020,7 @@ function love.graphics.getCaption() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return number
 function love.graphics.getDPIScale() end
 
 ---| Gets the DPI scale factor of the window.
@@ -791,6 +1028,8 @@ function love.graphics.getDPIScale() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return number
+--- @return number
 function love.graphics.getDimensions() end
 
 ---| Gets the width and height of the window.
@@ -798,6 +1037,7 @@ function love.graphics.getDimensions() end
 ---> ***Available since LÖVE 0.9.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return number
 function love.graphics.getHeight() end
 
 ---| Gets the height in pixels of the window.
@@ -805,6 +1045,7 @@ function love.graphics.getHeight() end
 ---> ***Available since LÖVE 0.2.1***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return Mode
 function love.graphics.getMode() end
 
 ---| Returns the current display mode.
@@ -814,6 +1055,7 @@ function love.graphics.getMode() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return table
 function love.graphics.getModes() end
 
 ---| Gets a list of supported fullscreen modes.
@@ -821,6 +1063,8 @@ function love.graphics.getModes() end
 ---> ***Removed in LÖVE 0.9.0***
 ---|
 ---| This function is not supported in that and later versions.
+--- @return number
+--- @return number
 function love.graphics.getPixelDimensions() end
 
 ---| Gets the width and height in pixels of the window.
@@ -828,224 +1072,9 @@ function love.graphics.getPixelDimensions() end
 ---> ***Available since LÖVE 11.0***
 ---|
 ---| This function is not supported in earlier versions.
+--- @return number
 function love.graphics.getPixelHeight() end
 
 ---| Gets the height in pixels of the window.
 ---|
----> ***Available since LÖVE 11.0***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getPixelWidth() end
-
----| Gets the width in pixels of the window.
----|
----> ***Available since LÖVE 11.0***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getWidth() end
-
----| Gets the width in pixels of the window.
----|
----> ***Available since LÖVE 0.2.1***
----|
----| This function is not supported in earlier versions.
-function love.graphics.hasFocus() end
-
----| Checks if the game window has keyboard focus.
----|
----> ***Available since LÖVE 0.8.0***
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.isCreated() end
-
----| Checks if the window has been created.
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.setCaption(caption) end
-
----| Sets the window caption.
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.setIcon(image) end
-
----| Set window icon.
----|
----> ***Available since LÖVE 0.7.0***
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.setMode(width, height, fullscreen, vsync, display, flags, depth, stencil) end
-
----| Changes the display mode.
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.toggleFullscreen() end
-
----| Toggles fullscreen.
----|
----> ***Removed in LÖVE 0.9.0***
----|
----| This function is not supported in that and later versions.
----
-function love.graphics.getCanvasFormats() end
-
----| Gets the available Canvas formats, and whether each is supported.
----|
----> ***Available since LÖVE 0.9.2***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getCompressedImageFormats() end
-
----| Gets the available compressed image formats, and whether each is supported.
----|
----> ***Available since LÖVE 0.9.2***
----|
----> ***Removed in LÖVE 11.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.getImageFormats() end
-
----| Gets the pixel formats usable for Images, and whether each is supported.
----|
----> ***Available since LÖVE 11.0***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getMaxImageSize() end
-
----| Gets the max supported width or height of Images and Canvases.
----|
----> ***Available since LÖVE 0.9.0***
----|
----> ***Removed in LÖVE 0.10.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.getMaxPointSize() end
-
----| Gets the max supported point size.
----|
----> ***Removed in LÖVE 0.10.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.getRendererInfo() end
-
----| Gets information about the system's video card and drivers.
----|
----> ***Available since LÖVE 0.9.0***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getStats() end
-
----| Gets performance-related rendering statistics.
----|
----> ***Available since LÖVE 0.9.2***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getSupported(feature) end
-
----| Gets the optional graphics features and whether they're supported.
----|
----> ***Available since LÖVE 0.10.0***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getSystemLimit(limit) end
-
----| Gets the system-dependent maximum value for a love.graphics feature.
----|
----> ***Available since LÖVE 0.9.1***
----|
----> ***Removed in LÖVE 0.10.0***
----|
----| This function is not supported in that and later versions.
-function love.graphics.getSystemLimits() end
-
----| Gets the system-dependent maximum values for love.graphics features.
----|
----> ***Available since LÖVE 0.10.0***
----|
----| This function is not supported in earlier versions.
-function love.graphics.getTextureTypes() end
-
----| Gets the available texture types, and whether each is supported.
----|
----> ***Available since LÖVE 11.0***
----|
----| This function is not supported in earlier versions.
----
---- @enum AlignMode
----| Text alignment.
----| "left"
----| "right"
----| "center"
----| "justify"
---- @enum ArcType
----| Different types of arcs that can be drawn.
----|
----> ***Available since LÖVE 0.10.1***
----|
----| This enum is not supported in earlier versions.
----| "pie"
----| "open"
---- @enum AttributeDataType
----| Data types used in a Mesh's vertex format.
----|
----> ***Available since LÖVE 0.9.0***
----|
----| This enum is not supported in earlier versions.
----| "float"
----| "byte"
----| "ubyte"
----| "short"
----| "ushort"
----| "int"
----| "uint"
---- @enum BlendAlphaMode
----| Different ways alpha affects color blending.
----|
----> ***Available since LÖVE 0.10.0***
----|
----| This enum is not supported in earlier versions.
----| "premultiplied"
----| "alphamultiply"
---- @enum BlendMode
----| Different ways to do color blending.
----|
----> ***Available since LÖVE 0.2.0***
----|
----| This enum is not supported in earlier versions.
----| "alpha"
----| "add"
----| "multiply"
----| "screen"
----| "subtract"
----| "invert"
----| "lighten"
----| "darken"
----| "replace"
----| "premultiplied"
---- @enum ColorMode
----| How the drawing color interacts with images.
----|
----> ***Available since LÖVE 0.9.0***
----|
----| This enum is not supported in earlier versions.
----| "modulate"
----| "multiply"
----| "add"
----| "screen"
---- @enum DepthMode
----| How to compare and write to the depth buffer.
----|
----> ***Available since LÖVE 11.0***
----|
----| This enum is not supported in earlier versions.
----| "less"
----|
+---> ***Available since LÖVE 11.0
