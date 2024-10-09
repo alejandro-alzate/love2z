@@ -364,3 +364,117 @@ function love.setDeprecationOutput(enable) end
 --- @param t loveconf
 --- @return table
 function love.conf(t) return {} end
+
+--- Callback function triggered when a directory is dragged and dropped onto the window.
+---
+--- Paths passed into this callback are able to be used with love.filesystem.mount, which is the only way to get read access via love.filesystem to the dropped directory. love.filesystem.mount does not generally accept other full platform-dependent directory paths that haven\'t been dragged and dropped onto the window.
+--- @param path string The full platform-dependent path to the directory. It can be used as an argument to love.filesystem.mount, in order to gain read access to the directory with love.filesystem.
+--- @return nil
+function love.directorydropped(path) end
+
+--- Called when the device display orientation changed, for example, user rotated their phone 180 degrees.
+--- @return nil
+function love.displayrotated() end
+
+--- Callback function used to draw on the screen every frame.
+function love.draw() end
+
+--- The error handler, used to display error messages.
+function love.errorhandler() end
+
+--- Callback function triggered when a file is dragged and dropped onto the window.
+function love.filedropped() end
+
+--- Callback function triggered when window receives or loses focus.
+function love.focus() end
+
+--- Called when a Joystick's virtual gamepad axis is moved.
+function love.gamepadaxis() end
+
+--- Called when a Joystick's virtual gamepad button is pressed.
+function love.gamepadpressed() end
+
+--- Called when a Joystick's virtual gamepad button is released.
+function love.gamepadreleased() end
+
+--- Called when a Joystick is connected.
+function love.joystickadded() end
+
+--- Called when a joystick axis moves.
+function love.joystickaxis() end
+
+--- Called when a joystick hat direction changes.
+function love.joystickhat() end
+
+--- Called when a joystick button is pressed.
+function love.joystickpressed() end
+
+--- Called when a joystick button is released.
+function love.joystickreleased() end
+
+--- Called when a Joystick is disconnected.
+function love.joystickremoved() end
+
+--- Callback function triggered when a key is pressed.
+function love.keypressed() end
+
+--- Callback function triggered when a keyboard key is released.
+function love.keyreleased() end
+
+--- This function is called exactly once at the beginning of the game.
+function love.load() end
+
+--- Callback function triggered when the system is running out of memory on mobile devices.
+---
+--- Mobile operating systems may forcefully kill the game if it uses too much memory, so any non-critical resource should be removed if possible (by setting all variables referencing the resources to '''nil'''), when this event is triggered. Sounds and images in particular tend to use the most memory.
+function love.lowmemory() end
+
+--- Callback function triggered when window receives or loses mouse focus.
+function love.mousefocus() end
+
+--- Callback function triggered when the mouse is moved.
+function love.mousemoved() end
+
+--- Callback function triggered when a mouse button is pressed.
+function love.mousepressed() end
+
+--- Callback function triggered when a mouse button is released.
+function love.mousereleased() end
+
+--- Callback function triggered when the game is closed.
+function love.quit() end
+
+--- Called when the window is resized, for example if the user resizes the window, or if love.window.setMode is called with an unsupported width or height in fullscreen and the window chooses the closest appropriate size.
+function love.resize() end
+
+--- The main function, containing the main loop. A sensible default is used when left out.
+function love.run() end
+
+--- Called when the candidate text for an IME (Input Method Editor) has changed.
+---
+--- The candidate text is not the final text that the user will eventually choose. Use love.textinput for that.
+function love.textedited() end
+
+--- Called when text has been entered by the user. For example if shift-2 is pressed on an American keyboard layout, the text '@' will be generated.
+function love.textinput() end
+
+--- Callback function triggered when a Thread encounters an error.
+function love.threaderror() end
+
+--- Callback function triggered when a touch press moves inside the touch screen.
+function love.touchmoved() end
+
+--- Callback function triggered when the touch screen is touched.
+function love.touchpressed() end
+
+--- Callback function triggered when the touch screen stops being touched.
+function love.touchreleased() end
+
+--- Callback function used to update the state of the game every frame.
+function love.update() end
+
+--- Callback function triggered when window is minimized/hidden or unminimized by the user.
+function love.visible() end
+
+--- Callback function triggered when the mouse wheel is moved.
+function love.wheelmoved() end
