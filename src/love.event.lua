@@ -170,7 +170,7 @@ function love.event.push(n, a, b, c, d, e, f, ...) end
 --- - ***Available since LÖVE 0.10.2***:
 --- 	- string "restart"
 --- 		- Restarts the game without relaunching the executable. This cleanly shuts down the main Lua state instance and creates a brand new one.
----@param exitstatus quitstatus|string|number
+---@param exitstatus? quitstatus|string|number
 function love.event.quit(exitstatus) end
 
 ---> ***Added since 0.6.0***
