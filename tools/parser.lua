@@ -23,6 +23,44 @@ local templates = {
 	sectionLine = "-- %s"
 }
 
+--- Generates a recursive declaration for the provided path.
+--- @param path string The path to generate a declaration for.
+--- @param is_local? boolean If true, the declaration will be marked as local.
+--- @return string The generated declaration string.
+function parser.generateDeclaration(path, is_local)
+	local parts = {}
+	local declaration = ""
+
+	-- Separates the path on the dots
+	for part in string.gmatch(path, "[^%.]+") do
+		table.insert(parts, part)
+	end
+
+	-- this is a trap that triggers if the path is invalid.
+	if #parts == 0 then
+		return ""
+	end
+
+	-- if the path ends in dot this is removed
+	if parts[#parts] == "" then
+		table.remove(parts, #parts)
+	end
+
+	-- All of that whole nonsense to put it back together
+	-- What I'm doing with my life honestly?
+	local accumulator = ""
+	for index, value in ipairs(parts) do
+		accumulator = (index == 1) and value or accumulator .. "." .. value
+
+		local addLocal = ((index == 1) and is_local) and "local " or ""
+		local line = string.format("%s%s = {}\n", addLocal, accumulator)
+
+		declaration = declaration .. line
+	end
+
+	return declaration
+end
+
 --- Takes the `returns` table and outputs the luals syntax as a string.
 --- @param t table|nil The table `returns` to parse.
 --- @return string result The result string.
@@ -63,10 +101,16 @@ function parser.argumentlitParser(t)
 	local result = ""
 
 	if type(t) == "table" then
+		local hasVarang = false
 		for index, value in ipairs(t) do
 			local name = value.name
-			result = (result == "") and name or (result .. ", " .. name)
+			if name == "..." then
+				hasVarang = true
+			else
+				result = (result == "") and name or (result .. ", " .. name)
+			end
 		end
+		if hasVarang then result = result .. ", ..." end
 	else
 		result = ""
 	end
@@ -131,7 +175,7 @@ end
 function parser.variantParser(t)
 	local result = {}
 	if type(t) == "table" then
-		local diagFlag = false -- #t > 1
+		local diagFlag = #t > 1
 		local variants = {}
 		for index, value in ipairs(t) do
 			local litargs = parser.argumentlitParser(value.arguments)
@@ -233,7 +277,7 @@ function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
 	-- sketch = sketch .. parser.makeSection("functions", typesString, "Functions")
 
 	-- Functions
-	local funcs = parser.functionParser(t.functions, "love.")
+	local funcs = parser.functionParser(t.functions, funcnamePrepend, funcnameAppend)
 	local funcsString = ""
 	for index, value in ipairs(funcs) do
 		funcsString = funcsString == "" and value or funcsString .. "\n\n" .. value

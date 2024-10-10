@@ -1,227 +1,79 @@
----> Available since LÖVE 0.6.0
---->
----> This module is not supported in earlier versions.
----
---- Manages events, like keypresses.
----
---- It is possible to define new events by appending the table `love.handlers`. Such functions can be invoked as usual, via love.event.push using the table index as an argument.
+--- @meta
+
+local love = {}
 love.event = {}
 
--- ************************************************************ --
--- ************************************************************ --
--- Classes
--- ************************************************************ --
--- ************************************************************ --
-
---- @class Event
----| ***Available since LÖVE 0.6.0***
----|
----| This enum is not supported in earlier versions.
----|
----| Arguments to love.event.push() and the like.
-
--- ************************************************************ --
--- ************************************************************ --
--- Enums
--- ************************************************************ --
--- ************************************************************ --
-
---- @alias events
----| "focus"				# Available since LÖVE 0.8.0: Window focus gained or lost
----| "joystickpressed"		# Available since LÖVE 0.8.0: Joystick pressed
----| "joystickreleased"		# Available since LÖVE 0.8.0: Joystick released
----| "keypressed"			# Available since LÖVE 0.8.0: Key pressed
----| "keyreleased"			# Available since LÖVE 0.8.0: Key released
----| "mousepressed"			# Available since LÖVE 0.8.0: Mouse pressed
----| "mousereleased"		# Available since LÖVE 0.8.0: Mouse released
----| "quit"					# Available since LÖVE 0.8.0: Quit
----|
----| "resize"				# Available since LÖVE 0.9.0: Window size changed by the user
----| "visible"				# Available since LÖVE 0.9.0: Window is minimized or un-minimized by the user
----| "mousefocus"			# Available since LÖVE 0.9.0: Window mouse focus gained or lost
----| "threaderror"			# Available since LÖVE 0.9.0: A Lua error has occurred in a [thread](https://love2d.org/wiki/Thread)
----| "joystickadded"		# Available since LÖVE 0.9.0: Joystick connected
----| "joystickremoved"		# Available since LÖVE 0.9.0: Joystick disconnected
----| "joystickaxis"			# Available since LÖVE 0.9.0: Joystick axis motion
----| "joystickhat"			# Available since LÖVE 0.9.0: Joystick hat pressed
----| "gamepadpressed"		# Available since LÖVE 0.9.0: Joystick's virtual gamepad button pressed
----| "gamepadreleased"		# Available since LÖVE 0.9.0: Joystick's virtual gamepad button released
----| "gamepadaxis"			# Available since LÖVE 0.9.0: Joystick's virtual gamepad axis moved
----| "textinput"			# Available since LÖVE 0.9.0: User entered text
----|
----| "mousemoved"			# Available since LÖVE 0.9.2: Mouse position changed
----|
----| "lowmemory"			# Available since LÖVE 0.10.0: Running out of memory on mobile devices system
----| "textedited"			# Available since LÖVE 0.10.0: Candidate text for an IME changed
----| "wheelmoved"			# Available since LÖVE 0.10.0: Mouse wheel moved
----| "touchpressed"			# Available since LÖVE 0.10.0: Touch screen touched
----| "touchreleased"		# Available since LÖVE 0.10.0: Touch screen stop touching
----| "touchmoved"			# Available since LÖVE 0.10.0: Touch press moved inside touch screen
----| "directorydropped"		# Available since LÖVE 0.10.0: Directory is dragged and dropped onto the window
----| "filedropped"			# Available since LÖVE 0.10.0: File is dragged and dropped onto the window.
----|
----| "jp"					# ~~Removed since LÖVE 0.8.0~~: Joystick pressed
----| "jr"					# ~~Removed since LÖVE 0.8.0~~: Joystick released
----| "kp"					# ~~Removed since LÖVE 0.8.0~~: Key pressed
----| "kr"					# ~~Removed since LÖVE 0.8.0~~: Key pressed
----| "mp"					# ~~Removed since LÖVE 0.8.0~~: Mouse pressed
----| "mr"					# ~~Removed since LÖVE 0.8.0~~: Mouse pressed
----| "q"					# ~~Removed since LÖVE 0.8.0~~: Quit
----|
----| "f"					# ~~Available since LÖVE 0.7.0 Removed since LÖVE 0.8.0~~: Window focus gained or lost
-
---- @alias quitstatus
----| "restart"				# Tells the default love.run to exit and restart the game without relaunching the executable.
-
-
-
+--#region functions
 -- ************************************************************ --
 -- ************************************************************ --
 -- Functions
 -- ************************************************************ --
 -- ************************************************************ --
 
----> ***Added since 0.7.2***
---->
----> This function is not supported in earlier versions.
----
 --- Clears the event queue.
---- @return nil
-function love.event.clear() end
-
----> ***Added since 0.6.0***
---->
----> This function is not supported in earlier versions.
 ---
+--- @return nil
+function love.event.clear() return  end
+
 --- Returns an iterator for messages in the event queue.
 ---
---- ### Example:
---- - Checking for events in 0.10.0
---- ```lua
---- for n, a, b, c, d, e, f in love.event.poll() do
---- 	if n == "quit" then
---- 		-- Quit!
---- 	end
---- end
---- ```
----
 --- @return function i Iterator function usable in a for loop.
---- @nodiscard
 function love.event.poll() return function() end end
 
----> ***Added since 0.6.0***
---->
----> This function is not supported in earlier versions.
----
 --- Pump events into the event queue.
----
+--- 
 --- This is a low-level function, and is usually not called by the user, but by love.run.
+--- 
+--- Note that this does need to be called for any OS to think you're still running,
+--- 
+--- and if you want to handle OS-generated events at all (think callbacks).
 ---
---- Note that this does need to be called for any OS to think your program is still running, and if you want to handle OS-generated events at all (think callbacks).
----
---->`love.event.pump` can only be called from the main thread, but afterwards, the rest of `love.event` can be used from any other thread.
 --- @return nil
-function love.event.pump() end
+function love.event.pump() return  end
 
----> ***Added since 0.6.0***
---->
----> This function is not supported in earlier versions.
----
 --- Adds an event to the event queue.
----
---- See [Variant](https://love2d.org/wiki/Variant) for the list of supported types for the arguments.
----
+--- 
 --- From 0.10.0 onwards, you may pass an arbitrary amount of arguments with this function, though the default callbacks don't ever use more than six.
 ---
---- ### Example:
---- - Available since LÖVE 0.8.0:
---- ```lua
---- function love.keypressed(k)
---- 	if k == 'escape' then
----			love.event.push('quit') -- Quit the game.
---- 	end
---- end
---- ```
----@param n Event The name of the event.
----@param a? any First event argument.
----@param b? any Second event argument.
----@param c? any Third event argument.
----@param d? any Available since LÖVE 0.8.0: Fourth event argument.
----@param e? any Available since LÖVE 0.10.0: Fifth event argument.
----@param f? any Available since LÖVE 0.10.0: Sixth event argument.
----@param ...? any Available since LÖVE 0.10.0: Further event arguments may follow.
----@return nil
-function love.event.push(n, a, b, c, d, e, f, ...) end
+--- @param n Event The name of the event.
+--- @param a Variant First event argument.
+--- @param b Variant Second event argument.
+--- @param c Variant Third event argument.
+--- @param d Variant Fourth event argument.
+--- @param e Variant Fifth event argument.
+--- @param f Variant Sixth event argument.
+--- @param ... Variant Further event arguments may follow.
+--- @return nil
+function love.event.push(n, a, b, c, d, e, f, ...) return  end
 
----> ***Added since 0.8.0***
---->
----> This function is not supported in earlier versions.
+--- Adds the quit event to the queue.
+--- 
+--- The quit event is a signal for the event handler to close LÖVE. It's possible to abort the exit process with the love.quit callback.
 ---
---- Exits or restarts the LÖVE program.
----
---- The quit event is a signal for the event handler to close LÖVE. It's possible to abort the exit process with the [love.quit](https://love2d.org/wiki/love.quit) callback.
----
---- Equivalent to `love.event.push("quit", exitstatus)`
----
---- exitstatus:
---- - ***Available since LÖVE 0.10.0***:
---- 	- number exitstatus (0)
---- 		- The program exit status to use when closing the application.
---- - ***Available since LÖVE 0.10.2***:
---- 	- string "restart"
---- 		- Restarts the game without relaunching the executable. This cleanly shuts down the main Lua state instance and creates a brand new one.
----@param exitstatus? quitstatus|string|number
-function love.event.quit(exitstatus) end
+--- @param exitstatus number The program exit status to use when closing the application.
+--- @return nil
+--- @diagnostic disable-next-line: duplicate-set-field
+function love.event.quit(exitstatus) return  end
 
----> ***Added since 0.6.0***
---->
----> This function is not supported in earlier versions.
+--- Adds the quit event to the queue.
+--- 
+--- The quit event is a signal for the event handler to close LÖVE. It's possible to abort the exit process with the love.quit callback.
 ---
----Like `love.event.poll()`, but blocks until there is an event in the queue.
+--- @param 'restart' string Tells the default love.run to exit and restart the game without relaunching the executable.
+--- @return nil
+--- @diagnostic disable-next-line: duplicate-set-field
+function love.event.quit('restart') return  end
+
+--- Like love.event.poll(), but blocks until there is an event in the queue.
 ---
----	### Example
---- An example that replace `love.event.poll()` with this function.
----	```lua
----	function love.run()
----		if love.load then love.load(love.arg.parseGameArguments(arg), arg) end
----
----		-- Main loop time.
----		return function()
----		-- Process events.
----		if love.event then
----			local name, a,b,c,d,e,f = love.event.wait()
----			if name then
----				if name == "quit" then
----					if not love.quit or not love.quit() then
----     				return a or 0
----    				end
----   			end
----   			local event = love.handlers[name]
----				event(a, b, c, d, e, f)
----  		end
---- 	end
----
----		-- Call update and draw
----		if love.update then love.update(0) end
----
----			if love.graphics and love.graphics.isActive() then
----	 			love.graphics.origin()
----	 			love.graphics.clear(love.graphics.getBackgroundColor())
----
----	 			if love.draw then love.draw() end
----
----	 			love.graphics.present()
----			end
----		end
----	end
----```
----@return Event|nil n? The name of event, or nil if the event is unrecognized.
----@return any a? First event argument.
----@return any b? Second event argument.
----@return any c? Third event argument.
----@return any d? Available since LÖVE 0.8.0: Fourth event argument.
----@return any e? Available since LÖVE 0.10.0: Fifth event argument.
----@return any f? Available since LÖVE 0.10.0: Fifth event argument.
----@return any ...? Available since LÖVE 0.10.0: Further event arguments may follow.
----@nodiscard
-function love.event.wait() return nil, nil, nil, nil, nil, nil, table.unpack({}) end
+--- @return Event n The name of event.
+--- @return Variant a First event argument.
+--- @return Variant b Second event argument.
+--- @return Variant c Third event argument.
+--- @return Variant d Fourth event argument.
+--- @return Variant e Fifth event argument.
+--- @return Variant f Sixth event argument.
+--- @return Variant ... Further event arguments may follow.
+function love.event.wait() return Event, Variant, Variant, Variant, Variant, Variant, Variant, Variant end
+
+--#endregion functions
