@@ -44,5 +44,6 @@ for jobindex, job in ipairs(jobs) do
 		print(err)
 	else
 		fhandle:write(sketch)
+		fhandle:close()
 	end
 end

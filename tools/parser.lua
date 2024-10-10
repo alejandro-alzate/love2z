@@ -23,10 +23,87 @@ local templates = {
 	sectionLine = "-- %s"
 }
 
+-- Putting all to true is my hacky way to do a `item in dict` python-like trick
+-- So I don't waste time in a for loop.
+local reservedKeywords = {
+	["and"] = true,
+	["break"] = true,
+	["do"] = true,
+	["else"] = true,
+	["elseif"] = true,
+	["end"] = true,
+	["false"] = true,
+	["for"] = true,
+	["function"] = true,
+	["if"] = true,
+	["in"] = true,
+	["local"] = true,
+	["nil"] = true,
+	["not"] = true,
+	["or"] = true,
+	["repeat"] = true,
+	["return"] = true,
+	["then"] = true,
+	["true"] = true,
+	["until"] = true,
+	["while"] = true,
+	["goto"] = true,
+	["global"] = true,
+	["_"] = true,
+}
+
+local coreFunctions = {
+	["print"] = true,
+	["assert"] = true,
+	["error"] = true,
+	["pcall"] = true,
+	["xpcall"] = true,
+	["tostring"] = true,
+	["tonumber"] = true,
+	["type"] = true,
+	["collectgarbage"] = true,
+	["getmetatable"] = true,
+	["setmetatable"] = true,
+	["rawequal"] = true,
+	["rawlen"] = true,
+	["rawget"] = true,
+	["rawset"] = true,
+}
+
+local coreLibraries = {
+	["io"] = true,
+	["string"] = true,
+	["table"] = true,
+	["math"] = true,
+	["os"] = true,
+	["debug"] = true,
+	["package"] = true,
+}
+
+--- Cleans names.
+---
+--- where inbuilt functions, libraries or reserved keywords are prepended with an
+--- double underscore with k, f, l in between to signal what triggered the clean.
+---
+--- This is to avoid collisions with Lua keywords and prevent issues with
+--- functions being named the same as core functions.
+--- @param name string The name of the function to clean.
+--- @return string clean The cleaned name.
+function parser.cleanName(name)
+	if reservedKeywords[name] then
+		return "_k_" .. name
+	elseif coreFunctions[name] then
+		return "_f_" .. name
+	elseif coreLibraries[name] then
+		return "_l_" .. name
+	end
+	return name
+end
+
 --- Generates a recursive declaration for the provided path.
 --- @param path string The path to generate a declaration for.
 --- @param is_local? boolean If true, the declaration will be marked as local.
---- @return string The generated declaration string.
+--- @return string declaration The generated declaration string.
 function parser.generateDeclaration(path, is_local)
 	local parts = {}
 	local declaration = ""
@@ -94,6 +171,7 @@ function parser.returnlsParser(t)
 			local name = value.name or "#"
 			local desc = value.description or ""
 			local valueType = value.type or "unknown"
+
 			valueType:gsub(" or ", "|")
 			if value.name:match(", ") then
 				--- Bundled arguments suck tbh
@@ -134,6 +212,7 @@ function parser.argumentlitParser(t)
 		local hasVarang = false
 		for index, value in ipairs(t) do
 			local name = value.name
+			name = name:gsub("'", ""):gsub("\"", "")
 			if name == "..." then
 				hasVarang = true
 			else
@@ -289,8 +368,10 @@ function parser.enumConstantParser(t)
 	if type(t) == "table" then
 		local constStrings = ""
 		for index, value in ipairs(t) do
+			local name = value.name
+			local desc = string.gsub(value.description, "\n", " ")
 			constStrings = constStrings ..
-				string.format("---| \"%s\"\t\t#\t\t%s\n", value.name, value.description:gsub("\\n", ""))
+				string.format("---| \"%s\"\t\t\t#\t\t%s\n", name, desc)
 		end
 		return constStrings
 	else

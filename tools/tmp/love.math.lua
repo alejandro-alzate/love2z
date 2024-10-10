@@ -12,8 +12,8 @@ love.math = {}
 
 --- The layout of matrix elements (row-major or column-major).
 --- @alias MatrixLayout
----| "row"		#		The matrix is row-major:
----| "column"		#		The matrix is column-major:
+---| "row"			#		The matrix is row-major:
+---| "column"			#		The matrix is column-major:
 
 
 --#endregion enums
