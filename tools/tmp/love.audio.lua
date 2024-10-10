@@ -602,8 +602,12 @@ function love.audio.setMixWithSystem(mix) return true end
 
 --- Sets the orientation of the listener.
 ---
---- @param fx, fy, fz number Forward vector of the listener orientation.
---- @param ux, uy, uz number Up vector of the listener orientation.
+--- @param fx number Forward vector of the listener orientation.
+--- @param fy number Forward vector of the listener orientation.
+--- @param fz number Forward vector of the listener orientation.
+--- @param ux number Up vector of the listener orientation.
+--- @param uy number Up vector of the listener orientation.
+--- @param uz number Up vector of the listener orientation.
 --- @return nil
 function love.audio.setOrientation(fx, fy, fz, ux, uy, uz) return  end
 

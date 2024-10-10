@@ -286,11 +286,24 @@ function parser.argumentlualsParser(t)
 			local name = value.name --or "#"
 			local valueType = value.type --or "unknown"
 			local desc = value.description --or ""
-
 			desc = desc:gsub("\n", "\n---| ")
 
-			local argString = string.format("--- @param %s %s %s", name, valueType, desc)
-			table.insert(argumentTable, argString)
+			if value.name:match(", ") then
+				--- Bundled arguments suck tbh
+				local parts = {}
+				for part in string.gmatch(value.name, "[^%,]+") do
+					part = part:gsub(" ", "")
+					table.insert(parts, part)
+				end
+
+				for _, part in ipairs(parts) do
+					local argString = string.format("--- @param %s %s %s", part, valueType, desc)
+					table.insert(argumentTable, argString)
+				end
+			else
+				local argString = string.format("--- @param %s %s %s", name, valueType, desc)
+				table.insert(argumentTable, argString)
+			end
 		end
 
 		for index, value in ipairs(argumentTable) do
