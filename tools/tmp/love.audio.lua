@@ -11,15 +11,15 @@ love.audio = {}
 -- ************************************************************ --
 
 --- The different distance models.
----
+--- 
 --- Extended information can be found in the chapter "3.4. Attenuation By Distance" of the OpenAL 1.1 specification.
 --- @alias DistanceModel
----| "none"					#		Sources do not get attenuated.
----| "inverse"				#		Inverse distance attenuation.
+---| "none"		#		Sources do not get attenuated.
+---| "inverse"		#		Inverse distance attenuation.
 ---| "inverseclamped"		#		Inverse distance attenuation. Gain is clamped. In version 0.9.2 and older this is named '''inverse clamped'''.
----| "linear"				#		Linear attenuation.
+---| "linear"		#		Linear attenuation.
 ---| "linearclamped"		#		Linear attenuation. Gain is clamped. In version 0.9.2 and older this is named '''linear clamped'''.
----| "exponent"				#		Exponential attenuation.
+---| "exponent"		#		Exponential attenuation.
 ---| "exponentclamped"		#		Exponential attenuation. Gain is clamped. In version 0.9.2 and older this is named '''exponent clamped'''.
 
 
@@ -51,7 +51,7 @@ love.audio = {}
 
 
 --- Types of audio sources.
----
+--- 
 --- A good rule of thumb is to use stream for music files and static for all short sound effects. Basically, you want to avoid loading large files into memory at once.
 --- @alias SourceType
 ---| "static"		#		The whole audio is decoded.
@@ -86,7 +86,7 @@ function love.audio.getActiveSourceCount() return 0 end
 --- Returns the distance attenuation model.
 ---
 --- @return DistanceModel model The current distance model. The default is 'inverseclamped'.
-function love.audio.getDistanceModel() return "inverseclamped" end
+function love.audio.getDistanceModel() return {} end
 
 --- Gets the current global scale factor for velocity-based doppler effects.
 ---
@@ -111,9 +111,13 @@ function love.audio.getMaxSourceEffects() return 0 end
 
 --- Returns the orientation of the listener.
 ---
---- @return number fx, fy, fz Forward vector of the listener orientation.
---- @return number ux, uy, uz Up vector of the listener orientation.
-function love.audio.getOrientation() return 0, 0 end
+--- @return number fx Forward vector of the listener orientation.
+--- @return number fy Forward vector of the listener orientation.
+--- @return number fz Forward vector of the listener orientation.
+--- @return number ux Up vector of the listener orientation.
+--- @return number uy Up vector of the listener orientation.
+--- @return number uz Up vector of the listener orientation.
+function love.audio.getOrientation() return 0, 0, 0, 0, 0, 0 end
 
 --- Returns the position of the listener. Please note that positional audio only works for mono (i.e. non-stereo) sources.
 ---
@@ -123,9 +127,9 @@ function love.audio.getOrientation() return 0, 0 end
 function love.audio.getPosition() return 0, 0, 0 end
 
 --- Gets a list of RecordingDevices on the system.
----
+--- 
 --- The first device in the list is the user's default recording device. The list may be empty if there are no microphones connected to the system.
----
+--- 
 --- Audio recording is currently not supported on iOS.
 ---
 --- @return table devices The list of connected recording devices.
@@ -158,7 +162,7 @@ function love.audio.isEffectsSupported() return true end
 function love.audio.newQueueableSource(samplerate, bitdepth, channels, buffercount) return {} end
 
 --- Creates a new Source from a filepath, File, Decoder or SoundData.
----
+--- 
 --- Sources created from SoundData are always static.
 ---
 --- @param filename string The filepath to the audio file.
@@ -168,7 +172,7 @@ function love.audio.newQueueableSource(samplerate, bitdepth, channels, buffercou
 function love.audio.newSource(filename, type) return {} end
 
 --- Creates a new Source from a filepath, File, Decoder or SoundData.
----
+--- 
 --- Sources created from SoundData are always static.
 ---
 --- @param file File A File pointing to an audio file.
@@ -178,7 +182,7 @@ function love.audio.newSource(filename, type) return {} end
 function love.audio.newSource(file, type) return {} end
 
 --- Creates a new Source from a filepath, File, Decoder or SoundData.
----
+--- 
 --- Sources created from SoundData are always static.
 ---
 --- @param decoder Decoder The Decoder to create a Source from.
@@ -188,7 +192,7 @@ function love.audio.newSource(file, type) return {} end
 function love.audio.newSource(decoder, type) return {} end
 
 --- Creates a new Source from a filepath, File, Decoder or SoundData.
----
+--- 
 --- Sources created from SoundData are always static.
 ---
 --- @param data FileData The FileData to create a Source from.
@@ -198,7 +202,7 @@ function love.audio.newSource(decoder, type) return {} end
 function love.audio.newSource(data, type) return {} end
 
 --- Creates a new Source from a filepath, File, Decoder or SoundData.
----
+--- 
 --- Sources created from SoundData are always static.
 ---
 --- @param data SoundData The SoundData to create a Source from.
@@ -218,28 +222,28 @@ function love.audio.pause() return {} end
 --- @param ... Source Additional Sources to pause.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.pause(source, ...) return end
+function love.audio.pause(source, ...) return  end
 
 --- Pauses specific or all currently played Sources.
 ---
 --- @param sources table A table containing a list of Sources to pause.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.pause(sources) return end
+function love.audio.pause(sources) return  end
 
 --- Plays the specified Source.
 ---
 --- @param source Source The Source to play.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.play(source) return end
+function love.audio.play(source) return  end
 
 --- Plays the specified Source.
 ---
 --- @param sources table Table containing a list of Sources to play.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.play(sources) return end
+function love.audio.play(sources) return  end
 
 --- Plays the specified Source.
 ---
@@ -248,22 +252,22 @@ function love.audio.play(sources) return end
 --- @param ... Source Additional Sources to play.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.play(source1, source2, ...) return end
+function love.audio.play(source1, source2, ...) return  end
 
 --- Sets the distance attenuation model.
 ---
 --- @param model DistanceModel The new distance model.
 --- @return nil
-function love.audio.setDistanceModel(model) return end
+function love.audio.setDistanceModel(model) return  end
 
 --- Sets a global scale factor for velocity-based doppler effects. The default scale value is 1.
 ---
 --- @param scale number The new doppler scale factor. The scale must be greater than 0.
 --- @return nil
-function love.audio.setDopplerScale(scale) return end
+function love.audio.setDopplerScale(scale) return  end
 
 --- Defines an effect that can be applied to a Source.
----
+--- 
 --- Not all system supports audio effects. Use love.audio.isEffectsSupported to check.
 ---
 --- @param name string The name of the effect.
@@ -273,7 +277,7 @@ function love.audio.setDopplerScale(scale) return end
 function love.audio.setEffect(name, settings) return true end
 
 --- Defines an effect that can be applied to a Source.
----
+--- 
 --- Not all system supports audio effects. Use love.audio.isEffectsSupported to check.
 ---
 --- @param name string The name of the effect.
@@ -293,7 +297,7 @@ function love.audio.setMixWithSystem(mix) return true end
 --- @param fx, fy, fz number Forward vector of the listener orientation.
 --- @param ux, uy, uz number Up vector of the listener orientation.
 --- @return nil
-function love.audio.setOrientation(fx, fy, fz, ux, uy, uz) return end
+function love.audio.setOrientation(fx, fy, fz, ux, uy, uz) return  end
 
 --- Sets the position of the listener, which determines how sounds play.
 ---
@@ -301,7 +305,7 @@ function love.audio.setOrientation(fx, fy, fz, ux, uy, uz) return end
 --- @param y number The y position of the listener.
 --- @param z number The z position of the listener.
 --- @return nil
-function love.audio.setPosition(x, y, z) return end
+function love.audio.setPosition(x, y, z) return  end
 
 --- Sets the velocity of the listener.
 ---
@@ -309,26 +313,26 @@ function love.audio.setPosition(x, y, z) return end
 --- @param y number The Y velocity of the listener.
 --- @param z number The Z velocity of the listener.
 --- @return nil
-function love.audio.setVelocity(x, y, z) return end
+function love.audio.setVelocity(x, y, z) return  end
 
 --- Sets the master volume.
 ---
 --- @param volume number 1.0 is max and 0.0 is off.
 --- @return nil
-function love.audio.setVolume(volume) return end
+function love.audio.setVolume(volume) return  end
 
 --- Stops currently played sources.
 ---
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.stop() return end
+function love.audio.stop() return  end
 
 --- Stops currently played sources.
 ---
 --- @param source Source The source on which to stop the playback.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.stop(source) return end
+function love.audio.stop(source) return  end
 
 --- Stops currently played sources.
 ---
@@ -337,13 +341,13 @@ function love.audio.stop(source) return end
 --- @param ... Source Additional Sources to stop.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.stop(source1, source2, ...) return end
+function love.audio.stop(source1, source2, ...) return  end
 
 --- Stops currently played sources.
 ---
 --- @param sources table A table containing a list of Sources to stop.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.audio.stop(sources) return end
+function love.audio.stop(sources) return  end
 
 --#endregion functions

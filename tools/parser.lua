@@ -85,20 +85,29 @@ end
 --- Takes the `returns` table and outputs the luals syntax as a string.
 --- @param t table|nil The table `returns` to parse.
 --- @return string result The result string.
-function parser.returnParser(t)
+function parser.returnlsParser(t)
 	local result = ""
 
 	if type(t) == "table" then
 		local returnTable = {}
 		for index, value in ipairs(t) do
-			local valueType = value.type or "unknown"
 			local name = value.name or "#"
 			local desc = value.description or ""
+			local valueType = value.type or "unknown"
+			valueType:gsub(" or ", "|")
+			if value.name:match(", ") then
+				--- Bundled arguments suck tbh
+				for part in string.gmatch(value.name, "[^%,]+") do
+					part = part:gsub(" ", "")
+					part = string.format("--- @return %s %s %s", valueType, part, desc)
+					table.insert(returnTable, part)
+				end
+			else
+				desc = desc:gsub("\n", "\n---|")
 
-			desc = desc:gsub("\n", "\n---|")
-
-			local retString = string.format("--- @return %s %s %s", valueType, name, desc)
-			table.insert(returnTable, retString)
+				local retString = string.format("--- @return %s %s %s", valueType, name, desc)
+				table.insert(returnTable, retString)
+			end
 		end
 
 		for index, value in ipairs(returnTable) do
@@ -148,7 +157,20 @@ function parser.returnlitParser(t)
 	if type(t) == "table" then
 		for index, value in ipairs(t) do
 			local name = aliases[value.type] or "{}" --value.type
-			result = (result == "") and name or (result .. ", " .. name)
+			if value.name:match(", ") then
+				--- Bundled arguments suck tbh
+				local parts = {}
+				for part in string.gmatch(value.name, "[^%,]+") do
+					part = part:gsub(" ", "")
+					table.insert(parts, part)
+				end
+
+				for index, value in ipairs(parts) do
+					result = (result == "") and name or (result .. ", " .. name)
+				end
+			else
+				result = (result == "") and name or (result .. ", " .. name)
+			end
 		end
 	else
 		result = ""
@@ -202,7 +224,7 @@ function parser.variantParser(t)
 			local litargs = parser.argumentlitParser(value.arguments)
 			local litrets = parser.returnlitParser(value.returns)
 			local arguments = parser.argumentlualsParser(value.arguments) or ""
-			local returns = parser.returnParser(value.returns) or ""
+			local returns = parser.returnlsParser(value.returns) or ""
 			local variantSrting = string.format(
 				"%s%s%s",
 				arguments .. (arguments ~= "" and "\n" or ""),
