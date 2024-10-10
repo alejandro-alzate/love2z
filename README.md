@@ -8,95 +8,95 @@ Typing hints for the [Zed](https://zed.dev/) Editor
 This is the things that have typing hints for the moment
 
 - [ ] [love](./src/love.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.audio](./src/love.audio.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.data](./src/love.data.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.event](./src/love.event.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.filesystem](./src/love.filesystem.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.font](./src/love.font.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.graphics](./src/love.graphics.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.image](./src/love.image.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.joystick](./src/love.joystick.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.keyboard](./src/love.keyboard.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.math](./src/love.math.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.mouse](./src/love.mouse.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.physics](./src/love.physics.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.sound](./src/love.sound.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.system](./src/love.system.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.thread](./src/love.thread.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.timer](./src/love.timer.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.touch](./src/love.touch.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.video](./src/love.video.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [love.window](./src/love.window.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [lua-enet](./src/lua-enet.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [luasocket](./src/luasocket.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 - [ ] [uft8](./src/uft8.lua)
-	- [ ] Enums
+	- [X] Enums
 	- [ ] Types
 	- [X] Functions
 
