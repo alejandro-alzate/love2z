@@ -128,7 +128,7 @@ function Thread:start() return  end
 --- @param ... Variant A string, number, boolean, LÖVE object, or simple table.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function Thread:start(, ...) return  end
+function Thread:start( ... ) return  end
 --- Wait for a thread to finish.
 --- 
 --- This call will block until the thread finishes.

@@ -870,7 +870,7 @@ function Fixture:rayCast(x1, y1, x2, y2, maxFraction, childIndex) return 0, 0, 0
 ---
 --- @param ... number The categories.
 --- @return nil
-function Fixture:setCategory(, ...) return  end
+function Fixture:setCategory( ... ) return  end
 --- Sets the density of the fixture. Call Body:resetMassData if this needs to take effect immediately.
 ---
 --- @param density number The fixture density in kilograms per square meter.
@@ -913,7 +913,7 @@ function Fixture:setGroupIndex(group) return  end
 ---
 --- @param ... number The masks.
 --- @return nil
-function Fixture:setMask(, ...) return  end
+function Fixture:setMask( ... ) return  end
 --- Sets the restitution of the fixture.
 ---
 --- @param restitution number The fixture restitution.

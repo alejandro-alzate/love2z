@@ -260,7 +260,13 @@ function parser.argumentlitParser(t)
 				result = (result == "") and name or (result .. ", " .. name)
 			end
 		end
-		if hasVarang then result = result .. ", ..." end
+		if hasVarang then
+			if #t == 1 then
+				result = result .. " ... "
+			else
+				result = result .. ", ..."
+			end
+		end
 	else
 		result = ""
 	end
