@@ -1,4 +1,27 @@
+--- Parser for the love api table.
 local parser = {}
+
+local aliases = {
+	unknown       = "Unknown?",
+	any           = "Any?",
+	["nil"]       = "nil",
+	boolean       = "true",
+	["true"]      = "true",
+	["false"]     = "false",
+	number        = "0",
+	integer       = "0",
+	thread        = "coroutine.create(function()end)",
+	table         = "{}",
+	string        = "\"\"",
+	userdata      = "{}",
+	lightuserdata = "{}",
+	["function"]  = "function() end"
+}
+
+local templates = {
+	asteriskLine = "-- ************************************************************ --",
+	sectionLine = "-- %s"
+}
 
 --- Takes the `returns` table and outputs the luals syntax as a string.
 --- @param t table|nil The table `returns` to parse.
@@ -42,7 +65,25 @@ function parser.argumentlitParser(t)
 	if type(t) == "table" then
 		for index, value in ipairs(t) do
 			local name = value.name
-			local result = (result == "") and name or (", " .. name)
+			result = (result == "") and name or (result .. ", " .. name)
+		end
+	else
+		result = ""
+	end
+
+	return result
+end
+
+--- Takes the `returns` table and outputs the literal return inside the function as a string.
+--- @param t table|nil The table `returns` to parse.
+--- @return string result The result string.
+function parser.returnlitParser(t)
+	local result = ""
+
+	if type(t) == "table" then
+		for index, value in ipairs(t) do
+			local name = aliases[value.type] or value.type
+			result = (result == "") and name or (result .. ", " .. name)
 		end
 	else
 		result = ""
@@ -93,6 +134,8 @@ function parser.variantParser(t)
 		local diagFlag = false -- #t > 1
 		local variants = {}
 		for index, value in ipairs(t) do
+			local litargs = parser.argumentlitParser(value.arguments)
+			local litrets = parser.returnlitParser(value.returns)
 			local arguments = parser.argumentlualsParser(value.arguments) or ""
 			local returns = parser.returnParser(value.returns) or ""
 			local variantSrting = string.format(
@@ -102,7 +145,7 @@ function parser.variantParser(t)
 				(diagFlag and "\n--- @diagnostic disable-next-line: duplicate-set-field" or "")
 			)
 
-			table.insert(variants, variantSrting)
+			table.insert(variants, { variantSrting = variantSrting, litargs = litargs, litrets = litrets })
 		end
 
 		result = variants
@@ -123,7 +166,6 @@ function parser.functionParser(t, funcnamePrepend, funcnameAppend)
 			local fname = value.name or "undefinedFunctionName"
 			local desc = value.description or "*No description provided*"
 			local variants = parser.variantParser(value.variants)
-			local literalargs = parser.argumentlitParser(value.variants)
 			local ftemplate = "function %s%s%s(%s) return %s end"
 			local literalfdef = ""
 			local funcString = ""
@@ -137,140 +179,69 @@ function parser.functionParser(t, funcnamePrepend, funcnameAppend)
 
 			local literalargs = ""
 			for varriantIndex, variantValue in ipairs(variants) do
+				local variantSrting = variantValue.variantSrting
+				local args = variantValue.litargs
+				local rets = variantValue.litrets --== "" and "nil" or variantValue.litrets
 				table.insert(result,
 					funcString
 					.. "\n"
-					.. variantValue
+					.. variantSrting
 					.. "\n"
-					.. string.format(literalfdef, "args", "rets")
+					.. string.format(literalfdef, args, rets)
 				)
 			end
-
-			--break
 		end
 	end
 	return result
 end
 
-local functions = {
-	{
-		name = 'getVersion',
-		description = 'Gets the current running version of LÖVE.',
-		variants = {
-			{
-				description =
-				'For LÖVE versions below 0.9.1, the following variables can be used instead (and still work in 0.9.2 and newer):\n\nlove._version_major\n\nlove._version_minor\n\nlove._version_revision',
-				returns = {
-					{
-						type = 'number',
-						name = 'major',
-						description = 'The major version of LÖVE, i.e. 0 for version 0.9.1.',
-					},
-					{
-						type = 'number',
-						name = 'minor',
-						description = 'The minor version of LÖVE, i.e. 9 for version 0.9.1.',
-					},
-					{
-						type = 'number',
-						name = 'revision',
-						description = 'The revision version of LÖVE, i.e. 1 for version 0.9.1.',
-					},
-					{
-						type = 'string',
-						name = 'codename',
-						description =
-						'The codename of the current version, i.e. \'Baby Inspector\' for version 0.9.1.',
-					},
-				},
-			},
-		},
-	},
-	{
-		name = 'hasDeprecationOutput',
-		description =
-		'Gets whether LÖVE displays warnings when using deprecated functionality. It is disabled by default in fused mode, and enabled by default otherwise.\n\nWhen deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.',
-		variants = {
-			{
-				returns = {
-					{
-						type = 'boolean',
-						name = 'enabled',
-						description = 'Whether deprecation output is enabled.',
-					},
-				},
-			},
-		},
-	},
-	{
-		name = 'isVersionCompatible',
-		description = 'Gets whether the given version is compatible with the current running version of LÖVE.',
-		variants = {
-			{
-				arguments = {
-					{
-						type = 'string',
-						name = 'version',
-						description = 'The version to check (for example \'11.3\' or \'0.10.2\').',
-					},
-				},
-				returns = {
-					{
-						type = 'boolean',
-						name = 'compatible',
-						description =
-						'Whether the given version is compatible with the current running version of LÖVE.',
-					},
-				},
-			},
-			{
-				arguments = {
-					{
-						type = 'number',
-						name = 'major',
-						description = 'The major version to check (for example 11 for 11.3 or 0 for 0.10.2).',
-					},
-					{
-						type = 'number',
-						name = 'minor',
-						description = 'The minor version to check (for example 3 for 11.3 or 10 for 0.10.2).',
-					},
-					{
-						type = 'number',
-						name = 'revision',
-						description = 'The revision of version to check (for example 0 for 11.3 or 2 for 0.10.2).',
-					},
-				},
-				returns = {
-					{
-						type = 'boolean',
-						name = 'compatible',
-						description =
-						'Whether the given version is compatible with the current running version of LÖVE.',
-					},
-				},
-			},
-		},
-	},
-	{
-		name = 'setDeprecationOutput',
-		description =
-		'Sets whether LÖVE displays warnings when using deprecated functionality. It is disabled by default in fused mode, and enabled by default otherwise.\n\nWhen deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.',
-		variants = {
-			{
-				arguments = {
-					{
-						type = 'boolean',
-						name = 'enable',
-						description = 'Whether to enable or disable deprecation output.',
-					},
-				},
-			},
-		},
-	},
-}
-
-for index, value in ipairs(parser.functionParser(functions, "love.")) do
-	print(index)
-	print(value)
+--- Makes a section named `name` and puts the content on `content`.
+--- @param name string The name of the section and header if not given on `headerName`.
+--- @param content string The content of the section.
+--- @param headerName? string The header name if not provided `name` will be used.
+--- @return string section
+function parser.makeSection(name, content, headerName)
+	local section = ""
+	section = section .. "--#region " .. name .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. "-- " .. (headerName or name) .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. "\n"
+	section = section .. content
+	section = section .. "\n"
+	section = section .. "\n"
+	section = section .. "--#endregion " .. name .. "\n"
+	return section
 end
+
+--- Takes a table containing definitions for functions to produce a luals complaint sketch
+--- @param t table The table `definitions` to parse.
+--- @param funcnamePrepend? string String to put before the function name..
+--- @param funcnameAppend? string String to put after the funtion name.
+--- @return string sketch The luals string
+function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
+	local sketch = ""
+
+	-- -- Types
+	-- local types = parser.typesParser(t.functions, "love.")
+	-- local typesString = ""
+	-- for index, value in ipairs(types) do
+	-- 	typesString = typesString == "" and value or typesString .. "\n\n" .. value
+	-- end
+	-- sketch = sketch .. parser.makeSection("functions", typesString, "Functions")
+
+	-- Functions
+	local funcs = parser.functionParser(t.functions, "love.")
+	local funcsString = ""
+	for index, value in ipairs(funcs) do
+		funcsString = funcsString == "" and value or funcsString .. "\n\n" .. value
+	end
+	sketch = sketch .. parser.makeSection("functions", funcsString, "Functions")
+
+
+	return sketch
+end
+
+return parser
