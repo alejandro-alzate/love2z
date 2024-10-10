@@ -3,6 +3,16 @@
 local love = {}
 love.sound = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -16,7 +26,7 @@ love.sound = {}
 --- @param buffer number The size of each decoded chunk, in bytes.
 --- @return Decoder decoder A new Decoder object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.sound.newDecoder(file, buffer) return Decoder end
+function love.sound.newDecoder(file, buffer) return {} end
 
 --- Attempts to find a decoder for the encoded sound data in the specified file.
 ---
@@ -24,7 +34,7 @@ function love.sound.newDecoder(file, buffer) return Decoder end
 --- @param buffer number The size of each decoded chunk, in bytes.
 --- @return Decoder decoder A new Decoder object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.sound.newDecoder(filename, buffer) return Decoder end
+function love.sound.newDecoder(filename, buffer) return {} end
 
 --- Creates new SoundData from a filepath, File, or Decoder. It's also possible to create SoundData with a custom sample rate, channel and bit depth.
 --- 
@@ -33,7 +43,7 @@ function love.sound.newDecoder(filename, buffer) return Decoder end
 --- @param filename string The file name of the file to load.
 --- @return SoundData soundData A new SoundData object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.sound.newSoundData(filename) return SoundData end
+function love.sound.newSoundData(filename) return {} end
 
 --- Creates new SoundData from a filepath, File, or Decoder. It's also possible to create SoundData with a custom sample rate, channel and bit depth.
 --- 
@@ -42,7 +52,7 @@ function love.sound.newSoundData(filename) return SoundData end
 --- @param file File A File pointing to an audio file.
 --- @return SoundData soundData A new SoundData object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.sound.newSoundData(file) return SoundData end
+function love.sound.newSoundData(file) return {} end
 
 --- Creates new SoundData from a filepath, File, or Decoder. It's also possible to create SoundData with a custom sample rate, channel and bit depth.
 --- 
@@ -51,7 +61,7 @@ function love.sound.newSoundData(file) return SoundData end
 --- @param decoder Decoder Decode data from this Decoder until EOF.
 --- @return SoundData soundData A new SoundData object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.sound.newSoundData(decoder) return SoundData end
+function love.sound.newSoundData(decoder) return {} end
 
 --- Creates new SoundData from a filepath, File, or Decoder. It's also possible to create SoundData with a custom sample rate, channel and bit depth.
 --- 
@@ -63,6 +73,6 @@ function love.sound.newSoundData(decoder) return SoundData end
 --- @param channels number Either 1 for mono or 2 for stereo.
 --- @return SoundData soundData A new SoundData object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.sound.newSoundData(samples, rate, bits, channels) return SoundData end
+function love.sound.newSoundData(samples, rate, bits, channels) return {} end
 
 --#endregion functions

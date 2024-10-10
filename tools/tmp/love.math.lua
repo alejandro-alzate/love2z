@@ -3,6 +3,20 @@
 local love = {}
 love.math = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- The layout of matrix elements (row-major or column-major).
+--- @alias MatrixLayout
+---| "row"		#		The matrix is row-major:
+---| "column"		#		The matrix is column-major:
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -162,7 +176,7 @@ function love.math.linearToGamma(lc) return 0 end
 --- @param vertices table The vertices of the control polygon as a table in the form of {x1, y1, x2, y2, x3, y3, ...}.
 --- @return BezierCurve curve A Bézier curve object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newBezierCurve(vertices) return BezierCurve end
+function love.math.newBezierCurve(vertices) return {} end
 
 --- Creates a new BezierCurve object.
 --- 
@@ -175,20 +189,20 @@ function love.math.newBezierCurve(vertices) return BezierCurve end
 --- @param ... number Additional position of the vertex of the control polygon on the x-axis and y-axis.
 --- @return BezierCurve curve A Bézier curve object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newBezierCurve(x1, y1, x2, y2, ...) return BezierCurve end
+function love.math.newBezierCurve(x1, y1, x2, y2, ...) return {} end
 
 --- Creates a new RandomGenerator object which is completely independent of other RandomGenerator objects and random functions.
 ---
 --- @return RandomGenerator rng The new Random Number Generator object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newRandomGenerator() return RandomGenerator end
+function love.math.newRandomGenerator() return {} end
 
 --- Creates a new RandomGenerator object which is completely independent of other RandomGenerator objects and random functions.
 ---
 --- @param seed number The initial seed number to use for this object.
 --- @return RandomGenerator rng The new Random Number Generator object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newRandomGenerator(seed) return RandomGenerator end
+function love.math.newRandomGenerator(seed) return {} end
 
 --- Creates a new RandomGenerator object which is completely independent of other RandomGenerator objects and random functions.
 ---
@@ -196,13 +210,13 @@ function love.math.newRandomGenerator(seed) return RandomGenerator end
 --- @param high number The higher 32 bits of the seed number to use for this object.
 --- @return RandomGenerator rng The new Random Number Generator object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newRandomGenerator(low, high) return RandomGenerator end
+function love.math.newRandomGenerator(low, high) return {} end
 
 --- Creates a new Transform object.
 ---
 --- @return Transform transform The new Transform object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newTransform() return Transform end
+function love.math.newTransform() return {} end
 
 --- Creates a new Transform object.
 ---
@@ -217,7 +231,7 @@ function love.math.newTransform() return Transform end
 --- @param ky number Shearing / skew factor on the y-axis.
 --- @return Transform transform The new Transform object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.math.newTransform(x, y, angle, sx, sy, ox, oy, kx, ky) return Transform end
+function love.math.newTransform(x, y, angle, sx, sy, ox, oy, kx, ky) return {} end
 
 --- Generates a Simplex or Perlin noise value in 1-4 dimensions. The return value will always be the same, given the same arguments.
 --- 

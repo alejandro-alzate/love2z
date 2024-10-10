@@ -3,6 +3,22 @@
 local love = {}
 love.font = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- True Type hinting mode.
+--- @alias HintingMode
+---| "normal"		#		Default hinting. Should be preferred for typical antialiased fonts.
+---| "light"		#		Results in fuzzier text but can sometimes preserve the original glyph shapes of the text better than normal hinting.
+---| "mono"		#		Results in aliased / unsmoothed text with either full opacity or completely transparent pixels. Should be used when antialiasing is not desired for the font.
+---| "none"		#		Disables hinting for the font. Results in fuzzier text.
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -17,7 +33,7 @@ love.font = {}
 --- @param dpiscale number DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newBMFontRasterizer(imageData, glyphs, dpiscale) return Rasterizer end
+function love.font.newBMFontRasterizer(imageData, glyphs, dpiscale) return {} end
 
 --- Creates a new BMFont Rasterizer.
 ---
@@ -26,7 +42,7 @@ function love.font.newBMFontRasterizer(imageData, glyphs, dpiscale) return Raste
 --- @param dpiscale number DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newBMFontRasterizer(fileName, glyphs, dpiscale) return Rasterizer end
+function love.font.newBMFontRasterizer(fileName, glyphs, dpiscale) return {} end
 
 --- Creates a new GlyphData.
 ---
@@ -42,21 +58,21 @@ function love.font.newGlyphData(rasterizer, glyph) return  end
 --- @param extraSpacing number Font extra spacing.
 --- @param dpiscale number Font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
-function love.font.newImageRasterizer(imageData, glyphs, extraSpacing, dpiscale) return Rasterizer end
+function love.font.newImageRasterizer(imageData, glyphs, extraSpacing, dpiscale) return {} end
 
 --- Creates a new Rasterizer.
 ---
 --- @param filename string The font file.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(filename) return Rasterizer end
+function love.font.newRasterizer(filename) return {} end
 
 --- Creates a new Rasterizer.
 ---
 --- @param data FileData The FileData of the font file.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(data) return Rasterizer end
+function love.font.newRasterizer(data) return {} end
 
 --- Creates a new Rasterizer.
 ---
@@ -65,7 +81,7 @@ function love.font.newRasterizer(data) return Rasterizer end
 --- @param dpiscale number The font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(size, hinting, dpiscale) return Rasterizer end
+function love.font.newRasterizer(size, hinting, dpiscale) return {} end
 
 --- Creates a new Rasterizer.
 ---
@@ -75,7 +91,7 @@ function love.font.newRasterizer(size, hinting, dpiscale) return Rasterizer end
 --- @param dpiscale number The font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(fileName, size, hinting, dpiscale) return Rasterizer end
+function love.font.newRasterizer(fileName, size, hinting, dpiscale) return {} end
 
 --- Creates a new Rasterizer.
 ---
@@ -85,7 +101,7 @@ function love.font.newRasterizer(fileName, size, hinting, dpiscale) return Raste
 --- @param dpiscale number The font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(fileData, size, hinting, dpiscale) return Rasterizer end
+function love.font.newRasterizer(fileData, size, hinting, dpiscale) return {} end
 
 --- Creates a new Rasterizer.
 ---
@@ -94,7 +110,7 @@ function love.font.newRasterizer(fileData, size, hinting, dpiscale) return Raste
 --- @param dpiscale number DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(imageData, glyphs, dpiscale) return Rasterizer end
+function love.font.newRasterizer(imageData, glyphs, dpiscale) return {} end
 
 --- Creates a new Rasterizer.
 ---
@@ -103,7 +119,7 @@ function love.font.newRasterizer(imageData, glyphs, dpiscale) return Rasterizer 
 --- @param dpiscale number DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newRasterizer(fileName, glyphs, dpiscale) return Rasterizer end
+function love.font.newRasterizer(fileName, glyphs, dpiscale) return {} end
 
 --- Creates a new TrueType Rasterizer.
 ---
@@ -112,7 +128,7 @@ function love.font.newRasterizer(fileName, glyphs, dpiscale) return Rasterizer e
 --- @param dpiscale number The font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newTrueTypeRasterizer(size, hinting, dpiscale) return Rasterizer end
+function love.font.newTrueTypeRasterizer(size, hinting, dpiscale) return {} end
 
 --- Creates a new TrueType Rasterizer.
 ---
@@ -122,7 +138,7 @@ function love.font.newTrueTypeRasterizer(size, hinting, dpiscale) return Rasteri
 --- @param dpiscale number The font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newTrueTypeRasterizer(fileName, size, hinting, dpiscale) return Rasterizer end
+function love.font.newTrueTypeRasterizer(fileName, size, hinting, dpiscale) return {} end
 
 --- Creates a new TrueType Rasterizer.
 ---
@@ -132,6 +148,6 @@ function love.font.newTrueTypeRasterizer(fileName, size, hinting, dpiscale) retu
 --- @param dpiscale number The font DPI scale.
 --- @return Rasterizer rasterizer The rasterizer.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.font.newTrueTypeRasterizer(fileData, size, hinting, dpiscale) return Rasterizer end
+function love.font.newTrueTypeRasterizer(fileData, size, hinting, dpiscale) return {} end
 
 --#endregion functions

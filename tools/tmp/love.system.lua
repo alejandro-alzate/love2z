@@ -3,6 +3,23 @@
 local love = {}
 love.system = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- The basic state of the system's power supply.
+--- @alias PowerState
+---| "unknown"		#		Cannot determine power status.
+---| "battery"		#		Not plugged in, running on a battery.
+---| "nobattery"		#		Plugged in, no battery available.
+---| "charging"		#		Plugged in, charging battery.
+---| "charged"		#		Plugged in, battery is fully charged.
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -25,7 +42,7 @@ function love.system.getOS() return "" end
 --- @return PowerState state The basic state of the power supply.
 --- @return number percent Percentage of battery life left, between 0 and 100. nil if the value can't be determined or there's no battery.
 --- @return number seconds Seconds of battery life left. nil if the value can't be determined or there's no battery.
-function love.system.getPowerInfo() return PowerState, 0, 0 end
+function love.system.getPowerInfo() return {}, 0, 0 end
 
 --- Gets the amount of logical processor in the system.
 ---

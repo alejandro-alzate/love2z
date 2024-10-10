@@ -3,6 +3,37 @@
 local love = {}
 love.window = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Types of device display orientation.
+--- @alias DisplayOrientation
+---| "unknown"		#		Orientation cannot be determined.
+---| "landscape"		#		Landscape orientation.
+---| "landscapeflipped"		#		Landscape orientation (flipped).
+---| "portrait"		#		Portrait orientation.
+---| "portraitflipped"		#		Portrait orientation (flipped).
+
+
+--- Types of fullscreen modes.
+--- @alias FullscreenType
+---| "desktop"		#		Sometimes known as borderless fullscreen windowed mode. A borderless screen-sized window is created which sits on top of all desktop UI elements. The window is automatically resized to match the dimensions of the desktop, and its size cannot be changed.
+---| "exclusive"		#		Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
+---| "normal"		#		Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
+
+
+--- Types of message box dialogs. Different types may have slightly different looks.
+--- @alias MessageBoxType
+---| "info"		#		Informational dialog.
+---| "warning"		#		Warning dialog.
+---| "error"		#		Error dialog.
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -76,13 +107,13 @@ function love.window.getDisplayName(displayindex) return "" end
 ---
 --- @param displayindex number Display index to get its display orientation, or nil for default display index.
 --- @return DisplayOrientation orientation Current device display orientation.
-function love.window.getDisplayOrientation(displayindex) return DisplayOrientation end
+function love.window.getDisplayOrientation(displayindex) return {} end
 
 --- Gets whether the window is fullscreen.
 ---
 --- @return boolean fullscreen True if the window is fullscreen, false otherwise.
 --- @return FullscreenType fstype The type of fullscreen mode used.
-function love.window.getFullscreen() return true, FullscreenType end
+function love.window.getFullscreen() return true, {} end
 
 --- Gets a list of supported fullscreen modes.
 ---
@@ -93,7 +124,7 @@ function love.window.getFullscreenModes(displayindex) return {} end
 --- Gets the window icon.
 ---
 --- @return ImageData imagedata The window icon imagedata, or nil if no icon has been set with love.window.setIcon.
-function love.window.getIcon() return ImageData end
+function love.window.getIcon() return {} end
 
 --- Gets the display mode and properties of the window.
 ---

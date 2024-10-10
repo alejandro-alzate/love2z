@@ -3,6 +3,43 @@
 local love = {}
 love.filesystem = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Buffer modes for File objects.
+--- @alias BufferMode
+---| "none"		#		No buffering. The result of write and append operations appears immediately.
+---| "line"		#		Line buffering. Write and append operations are buffered until a newline is output or the buffer size limit is reached.
+---| "full"		#		Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
+
+
+--- How to decode a given FileData.
+--- @alias FileDecoder
+---| "file"		#		The data is unencoded.
+---| "base64"		#		The data is base64-encoded.
+
+
+--- The different modes you can open a File in.
+--- @alias FileMode
+---| "r"		#		Open a file for read.
+---| "w"		#		Open a file for write.
+---| "a"		#		Open a file for append.
+---| "c"		#		Do not open a file (represents a closed file.)
+
+
+--- The type of a file.
+--- @alias FileType
+---| "file"		#		Regular file.
+---| "directory"		#		Directory.
+---| "symlink"		#		Symbolic link.
+---| "other"		#		Something completely different like a device.
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -225,7 +262,7 @@ function love.filesystem.mount(data, archivename, mountpoint, appendToPath) retu
 --- @param filename string The filename of the file.
 --- @return File file The new File object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.filesystem.newFile(filename) return File end
+function love.filesystem.newFile(filename) return {} end
 
 --- Creates a new File object. 
 --- 
@@ -236,7 +273,7 @@ function love.filesystem.newFile(filename) return File end
 --- @return File file The new File object, or nil if an error occurred.
 --- @return string errorstr The error string if an error occurred.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.filesystem.newFile(filename, mode) return File, "" end
+function love.filesystem.newFile(filename, mode) return {}, "" end
 
 --- Creates a new FileData object from a file on disk, or from a string in memory.
 ---
@@ -244,7 +281,7 @@ function love.filesystem.newFile(filename, mode) return File, "" end
 --- @param name string The name of the file. The extension may be parsed and used by LÖVE when passing the FileData object into love.audio.newSource.
 --- @return FileData data The new FileData.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.filesystem.newFileData(contents, name) return FileData end
+function love.filesystem.newFileData(contents, name) return {} end
 
 --- Creates a new FileData object from a file on disk, or from a string in memory.
 ---
@@ -252,7 +289,7 @@ function love.filesystem.newFileData(contents, name) return FileData end
 --- @param name string The name of the file. The extension may be parsed and used by LÖVE when passing the FileData object into love.audio.newSource.
 --- @return FileData data The new FileData.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.filesystem.newFileData(originaldata, name) return FileData end
+function love.filesystem.newFileData(originaldata, name) return {} end
 
 --- Creates a new FileData object from a file on disk, or from a string in memory.
 ---
@@ -260,7 +297,7 @@ function love.filesystem.newFileData(originaldata, name) return FileData end
 --- @return FileData data The new FileData, or nil if an error occurred.
 --- @return string err The error string, if an error occurred.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.filesystem.newFileData(filepath) return FileData, "" end
+function love.filesystem.newFileData(filepath) return {}, "" end
 
 --- Read the contents of a file.
 ---
@@ -283,7 +320,7 @@ function love.filesystem.read(name, size) return "", 0, nil, "" end
 --- @return nil contents returns nil as content.
 --- @return string error returns an error message.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.filesystem.read(container, name, size) return FileData or string, 0, nil, "" end
+function love.filesystem.read(container, name, size) return {}, 0, nil, "" end
 
 --- Removes a file or empty directory.
 ---

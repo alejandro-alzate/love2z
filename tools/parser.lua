@@ -2,8 +2,8 @@
 local parser = {}
 
 local aliases = {
-	unknown       = "Unknown?",
-	any           = "Any?",
+	unknown       = "\"Unknown?\"",
+	any           = "\"Any?\"",
 	["nil"]       = "nil",
 	boolean       = "true",
 	["true"]      = "true",
@@ -59,6 +59,27 @@ function parser.generateDeclaration(path, is_local)
 	end
 
 	return declaration
+end
+
+--- Makes a section named `name` and puts the content on `content`.
+--- @param name string The name of the section and header if not given on `headerName`.
+--- @param content string The content of the section.
+--- @param headerName? string The header name if not provided `name` will be used.
+--- @return string section
+function parser.makeSection(name, content, headerName)
+	local section = ""
+	section = section .. "--#region " .. name .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. "-- " .. (headerName or name) .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. (templates.asteriskLine or "") .. "\n"
+	section = section .. "\n"
+	section = section .. content
+	section = section .. "\n"
+	section = section .. "\n"
+	section = section .. "--#endregion " .. name .. "\n"
+	return section
 end
 
 --- Takes the `returns` table and outputs the luals syntax as a string.
@@ -126,7 +147,7 @@ function parser.returnlitParser(t)
 
 	if type(t) == "table" then
 		for index, value in ipairs(t) do
-			local name = aliases[value.type] or value.type
+			local name = aliases[value.type] or "{}" --value.type
 			result = (result == "") and name or (result .. ", " .. name)
 		end
 	else
@@ -239,25 +260,43 @@ function parser.functionParser(t, funcnamePrepend, funcnameAppend)
 	return result
 end
 
---- Makes a section named `name` and puts the content on `content`.
---- @param name string The name of the section and header if not given on `headerName`.
---- @param content string The content of the section.
---- @param headerName? string The header name if not provided `name` will be used.
---- @return string section
-function parser.makeSection(name, content, headerName)
-	local section = ""
-	section = section .. "--#region " .. name .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. "-- " .. (headerName or name) .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. "\n"
-	section = section .. content
-	section = section .. "\n"
-	section = section .. "\n"
-	section = section .. "--#endregion " .. name .. "\n"
-	return section
+--- Takes the table `constants` from a enum, and returns them as a luals string
+--- @param t table The `constant` table.
+--- @return string constString The processed luals string
+function parser.enumConstantParser(t)
+	if type(t) == "table" then
+		local constStrings = ""
+		for index, value in ipairs(t) do
+			constStrings = constStrings ..
+				string.format("---| \"%s\"\t\t#\t\t%s\n", value.name, value.description:gsub("\\n", ""))
+		end
+		return constStrings
+	else
+		return ""
+	end
+end
+
+--- Takes the table `enum` and returns it as a luals `@alias` strings on a table
+--- @param t table The `enum` table.
+--- @return table enumTable The luals styled string
+function parser.enumParser(t)
+	if type(t) == "table" then
+		local enumTables = {}
+		for index, value in ipairs(t) do
+			local enumStrings = ""
+			local name = value.name
+			local desc = value.description:gsub("\n", "\n--- ")
+			local constString = parser.enumConstantParser(value.constants)
+			local template = "--- %s\n--- @alias %s\n%s"
+
+			enumStrings = enumStrings .. string.format(template, desc, name, constString)
+
+			table.insert(enumTables, enumStrings)
+		end
+		return enumTables
+	else
+		return {}
+	end
 end
 
 --- Takes a table containing definitions for functions to produce a luals complaint sketch
@@ -267,6 +306,15 @@ end
 --- @return string sketch The luals string
 function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
 	local sketch = ""
+
+	-- Enums
+	local enums = parser.enumParser(t.enums)
+	local enumsString = ""
+	for index, value in ipairs(enums) do
+		enumsString = (enumsString == "") and value or enumsString .. "\n\n" .. value
+	end
+	sketch = sketch .. parser.makeSection("enums", enumsString, "Enumerators")
+
 
 	-- -- Types
 	-- local types = parser.typesParser(t.functions, "love.")
@@ -287,5 +335,56 @@ function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
 
 	return sketch
 end
+
+local enums = {
+	{
+		name = 'AlignMode',
+		description = 'Text alignment.',
+		constants = {
+			{
+				name = 'center',
+				description = 'Align text center.',
+			},
+			{
+				name = 'left',
+				description = 'Align text left.',
+			},
+			{
+				name = 'right',
+				description = 'Align text right.',
+			},
+			{
+				name = 'justify',
+				description = 'Align text both left and right.',
+			},
+		},
+	},
+	{
+		name = 'ArcType',
+		description = 'Different types of arcs that can be drawn.',
+		constants = {
+			{
+				name = 'pie',
+				description =
+				'The arc is drawn like a slice of pie, with the arc circle connected to the center at its end-points.',
+			},
+			{
+				name = 'open',
+				description =
+				'The arc circle\'s two end-points are unconnected when the arc is drawn as a line. Behaves like the "closed" arc type when the arc is drawn in filled mode.',
+			},
+			{
+				name = 'closed',
+				description = 'The arc circle\'s two end-points are connected to each other.',
+			},
+		},
+	}
+}
+
+local serpent = require("serpent")
+local enumsTable = parser.enumParser(enums)
+--print(enumsTable[2])
+
+print(parser.makeSketch({ enums = enums }))
 
 return parser

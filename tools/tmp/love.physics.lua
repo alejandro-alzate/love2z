@@ -3,6 +3,42 @@
 local love = {}
 love.physics = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- The types of a Body. 
+--- @alias BodyType
+---| "static"		#		Static bodies do not move.
+---| "dynamic"		#		Dynamic bodies collide with all bodies.
+---| "kinematic"		#		Kinematic bodies only collide with dynamic bodies.
+
+
+--- Different types of joints.
+--- @alias JointType
+---| "distance"		#		A DistanceJoint.
+---| "friction"		#		A FrictionJoint.
+---| "gear"		#		A GearJoint.
+---| "mouse"		#		A MouseJoint.
+---| "prismatic"		#		A PrismaticJoint.
+---| "pulley"		#		A PulleyJoint.
+---| "revolute"		#		A RevoluteJoint.
+---| "rope"		#		A RopeJoint.
+---| "weld"		#		A WeldJoint.
+
+
+--- The different types of Shapes, as returned by Shape:getType.
+--- @alias ShapeType
+---| "circle"		#		The Shape is a CircleShape.
+---| "polygon"		#		The Shape is a PolygonShape.
+---| "edge"		#		The Shape is a EdgeShape.
+---| "chain"		#		The Shape is a ChainShape.
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -47,7 +83,7 @@ function love.physics.getMeter() return 0 end
 --- @param y number The y position of the body.
 --- @param type BodyType The type of the body.
 --- @return Body body A new body.
-function love.physics.newBody(world, x, y, type) return Body end
+function love.physics.newBody(world, x, y, type) return {} end
 
 --- Creates a new ChainShape.
 ---
@@ -59,7 +95,7 @@ function love.physics.newBody(world, x, y, type) return Body end
 --- @param ... number Additional point positions.
 --- @return ChainShape shape The new shape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newChainShape(loop, x1, y1, x2, y2, ...) return ChainShape end
+function love.physics.newChainShape(loop, x1, y1, x2, y2, ...) return {} end
 
 --- Creates a new ChainShape.
 ---
@@ -67,14 +103,14 @@ function love.physics.newChainShape(loop, x1, y1, x2, y2, ...) return ChainShape
 --- @param points table A list of points to construct the ChainShape, in the form of {x1, y1, x2, y2, ...}.
 --- @return ChainShape shape The new shape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newChainShape(loop, points) return ChainShape end
+function love.physics.newChainShape(loop, points) return {} end
 
 --- Creates a new CircleShape.
 ---
 --- @param radius number The radius of the circle.
 --- @return CircleShape shape The new shape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newCircleShape(radius) return CircleShape end
+function love.physics.newCircleShape(radius) return {} end
 
 --- Creates a new CircleShape.
 ---
@@ -83,7 +119,7 @@ function love.physics.newCircleShape(radius) return CircleShape end
 --- @param radius number The radius of the circle.
 --- @return CircleShape shape The new shape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newCircleShape(x, y, radius) return CircleShape end
+function love.physics.newCircleShape(x, y, radius) return {} end
 
 --- Creates a DistanceJoint between two bodies.
 --- 
@@ -97,7 +133,7 @@ function love.physics.newCircleShape(x, y, radius) return CircleShape end
 --- @param y2 number The y position of the second anchor point (world space).
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return DistanceJoint joint The new distance joint.
-function love.physics.newDistanceJoint(body1, body2, x1, y1, x2, y2, collideConnected) return DistanceJoint end
+function love.physics.newDistanceJoint(body1, body2, x1, y1, x2, y2, collideConnected) return {} end
 
 --- Creates a new EdgeShape.
 ---
@@ -106,7 +142,7 @@ function love.physics.newDistanceJoint(body1, body2, x1, y1, x2, y2, collideConn
 --- @param x2 number The x position of the second point.
 --- @param y2 number The y position of the second point.
 --- @return EdgeShape shape The new shape.
-function love.physics.newEdgeShape(x1, y1, x2, y2) return EdgeShape end
+function love.physics.newEdgeShape(x1, y1, x2, y2) return {} end
 
 --- Creates and attaches a Fixture to a body.
 --- 
@@ -116,7 +152,7 @@ function love.physics.newEdgeShape(x1, y1, x2, y2) return EdgeShape end
 --- @param shape Shape The shape to be copied to the fixture.
 --- @param density number The density of the fixture.
 --- @return Fixture fixture The new fixture.
-function love.physics.newFixture(body, shape, density) return Fixture end
+function love.physics.newFixture(body, shape, density) return {} end
 
 --- Create a friction joint between two bodies. A FrictionJoint applies friction to a body.
 ---
@@ -127,7 +163,7 @@ function love.physics.newFixture(body, shape, density) return Fixture end
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return FrictionJoint joint The new FrictionJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newFrictionJoint(body1, body2, x, y, collideConnected) return FrictionJoint end
+function love.physics.newFrictionJoint(body1, body2, x, y, collideConnected) return {} end
 
 --- Create a friction joint between two bodies. A FrictionJoint applies friction to a body.
 ---
@@ -140,7 +176,7 @@ function love.physics.newFrictionJoint(body1, body2, x, y, collideConnected) ret
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return FrictionJoint joint The new FrictionJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newFrictionJoint(body1, body2, x1, y1, x2, y2, collideConnected) return FrictionJoint end
+function love.physics.newFrictionJoint(body1, body2, x1, y1, x2, y2, collideConnected) return {} end
 
 --- Create a GearJoint connecting two Joints.
 --- 
@@ -153,7 +189,7 @@ function love.physics.newFrictionJoint(body1, body2, x1, y1, x2, y2, collideConn
 --- @param ratio number The gear ratio.
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return GearJoint joint The new gear joint.
-function love.physics.newGearJoint(joint1, joint2, ratio, collideConnected) return GearJoint end
+function love.physics.newGearJoint(joint1, joint2, ratio, collideConnected) return {} end
 
 --- Creates a joint between two bodies which controls the relative motion between them.
 --- 
@@ -164,7 +200,7 @@ function love.physics.newGearJoint(joint1, joint2, ratio, collideConnected) retu
 --- @param correctionFactor number The joint's initial position correction factor, in the range of 1.
 --- @return MotorJoint joint The new MotorJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newMotorJoint(body1, body2, correctionFactor) return MotorJoint end
+function love.physics.newMotorJoint(body1, body2, correctionFactor) return {} end
 
 --- Creates a joint between two bodies which controls the relative motion between them.
 --- 
@@ -176,7 +212,7 @@ function love.physics.newMotorJoint(body1, body2, correctionFactor) return Motor
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return MotorJoint joint The new MotorJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newMotorJoint(body1, body2, correctionFactor, collideConnected) return MotorJoint end
+function love.physics.newMotorJoint(body1, body2, correctionFactor, collideConnected) return {} end
 
 --- Create a joint between a body and the mouse.
 --- 
@@ -188,7 +224,7 @@ function love.physics.newMotorJoint(body1, body2, correctionFactor, collideConne
 --- @param x number The x position of the connecting point.
 --- @param y number The y position of the connecting point.
 --- @return MouseJoint joint The new mouse joint.
-function love.physics.newMouseJoint(body, x, y) return MouseJoint end
+function love.physics.newMouseJoint(body, x, y) return {} end
 
 --- Creates a new PolygonShape.
 --- 
@@ -203,7 +239,7 @@ function love.physics.newMouseJoint(body, x, y) return MouseJoint end
 --- @param ... number You can continue passing more point positions to create the PolygonShape.
 --- @return PolygonShape shape A new PolygonShape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newPolygonShape(x1, y1, x2, y2, x3, y3, ...) return PolygonShape end
+function love.physics.newPolygonShape(x1, y1, x2, y2, x3, y3, ...) return {} end
 
 --- Creates a new PolygonShape.
 --- 
@@ -212,7 +248,7 @@ function love.physics.newPolygonShape(x1, y1, x2, y2, x3, y3, ...) return Polygo
 --- @param vertices table A list of vertices to construct the polygon, in the form of {x1, y1, x2, y2, x3, y3, ...}.
 --- @return PolygonShape shape A new PolygonShape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newPolygonShape(vertices) return PolygonShape end
+function love.physics.newPolygonShape(vertices) return {} end
 
 --- Creates a PrismaticJoint between two bodies.
 --- 
@@ -227,7 +263,7 @@ function love.physics.newPolygonShape(vertices) return PolygonShape end
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return PrismaticJoint joint The new prismatic joint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newPrismaticJoint(body1, body2, x, y, ax, ay, collideConnected) return PrismaticJoint end
+function love.physics.newPrismaticJoint(body1, body2, x, y, ax, ay, collideConnected) return {} end
 
 --- Creates a PrismaticJoint between two bodies.
 --- 
@@ -244,7 +280,7 @@ function love.physics.newPrismaticJoint(body1, body2, x, y, ax, ay, collideConne
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return PrismaticJoint joint The new prismatic joint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected) return PrismaticJoint end
+function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected) return {} end
 
 --- Creates a PrismaticJoint between two bodies.
 --- 
@@ -262,7 +298,7 @@ function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, co
 --- @param referenceAngle number The reference angle between body1 and body2, in radians.
 --- @return PrismaticJoint joint The new prismatic joint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected, referenceAngle) return PrismaticJoint end
+function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected, referenceAngle) return {} end
 
 --- Creates a PulleyJoint to join two bodies to each other and the ground.
 --- 
@@ -283,7 +319,7 @@ function love.physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, co
 --- @param ratio number The joint ratio.
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return PulleyJoint joint The new pulley joint.
-function love.physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x2, y2, ratio, collideConnected) return PulleyJoint end
+function love.physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x2, y2, ratio, collideConnected) return {} end
 
 --- Shorthand for creating rectangular PolygonShapes. 
 --- 
@@ -293,7 +329,7 @@ function love.physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x
 --- @param height number The height of the rectangle.
 --- @return PolygonShape shape A new PolygonShape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newRectangleShape(width, height) return PolygonShape end
+function love.physics.newRectangleShape(width, height) return {} end
 
 --- Shorthand for creating rectangular PolygonShapes. 
 --- 
@@ -306,7 +342,7 @@ function love.physics.newRectangleShape(width, height) return PolygonShape end
 --- @param angle number The initial angle of the rectangle.
 --- @return PolygonShape shape A new PolygonShape.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newRectangleShape(x, y, width, height, angle) return PolygonShape end
+function love.physics.newRectangleShape(x, y, width, height, angle) return {} end
 
 --- Creates a pivot joint between two bodies.
 --- 
@@ -319,7 +355,7 @@ function love.physics.newRectangleShape(x, y, width, height, angle) return Polyg
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return RevoluteJoint joint The new revolute joint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newRevoluteJoint(body1, body2, x, y, collideConnected) return RevoluteJoint end
+function love.physics.newRevoluteJoint(body1, body2, x, y, collideConnected) return {} end
 
 --- Creates a pivot joint between two bodies.
 --- 
@@ -335,7 +371,7 @@ function love.physics.newRevoluteJoint(body1, body2, x, y, collideConnected) ret
 --- @param referenceAngle number The reference angle between body1 and body2, in radians.
 --- @return RevoluteJoint joint The new revolute joint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) return RevoluteJoint end
+function love.physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) return {} end
 
 --- Creates a joint between two bodies. Its only function is enforcing a max distance between these bodies.
 ---
@@ -348,7 +384,7 @@ function love.physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConn
 --- @param maxLength number The maximum distance for the bodies.
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return RopeJoint joint The new RopeJoint.
-function love.physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, collideConnected) return RopeJoint end
+function love.physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, collideConnected) return {} end
 
 --- Creates a constraint joint between two bodies. A WeldJoint essentially glues two bodies together. The constraint is a bit soft, however, due to Box2D's iterative solver.
 ---
@@ -359,7 +395,7 @@ function love.physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, coll
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return WeldJoint joint The new WeldJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newWeldJoint(body1, body2, x, y, collideConnected) return WeldJoint end
+function love.physics.newWeldJoint(body1, body2, x, y, collideConnected) return {} end
 
 --- Creates a constraint joint between two bodies. A WeldJoint essentially glues two bodies together. The constraint is a bit soft, however, due to Box2D's iterative solver.
 ---
@@ -372,7 +408,7 @@ function love.physics.newWeldJoint(body1, body2, x, y, collideConnected) return 
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return WeldJoint joint The new WeldJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected) return WeldJoint end
+function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected) return {} end
 
 --- Creates a constraint joint between two bodies. A WeldJoint essentially glues two bodies together. The constraint is a bit soft, however, due to Box2D's iterative solver.
 ---
@@ -386,7 +422,7 @@ function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnecte
 --- @param referenceAngle number The reference angle between body1 and body2, in radians.
 --- @return WeldJoint joint The new WeldJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) return WeldJoint end
+function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) return {} end
 
 --- Creates a wheel joint.
 ---
@@ -399,7 +435,7 @@ function love.physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnecte
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return WheelJoint joint The new WheelJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newWheelJoint(body1, body2, x, y, ax, ay, collideConnected) return WheelJoint end
+function love.physics.newWheelJoint(body1, body2, x, y, ax, ay, collideConnected) return {} end
 
 --- Creates a wheel joint.
 ---
@@ -414,7 +450,7 @@ function love.physics.newWheelJoint(body1, body2, x, y, ax, ay, collideConnected
 --- @param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- @return WheelJoint joint The new WheelJoint.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.physics.newWheelJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected) return WheelJoint end
+function love.physics.newWheelJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected) return {} end
 
 --- Creates a new World.
 ---
@@ -422,7 +458,7 @@ function love.physics.newWheelJoint(body1, body2, x1, y1, x2, y2, ax, ay, collid
 --- @param yg number The y component of gravity.
 --- @param sleep boolean Whether the bodies in this world are allowed to sleep.
 --- @return World world A brave new World.
-function love.physics.newWorld(xg, yg, sleep) return World end
+function love.physics.newWorld(xg, yg, sleep) return {} end
 
 --- Sets the pixels to meter scale factor.
 --- 

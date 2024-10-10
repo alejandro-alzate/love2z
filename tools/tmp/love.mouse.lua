@@ -3,6 +3,31 @@
 local love = {}
 love.mouse = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Types of hardware cursors.
+--- @alias CursorType
+---| "image"		#		The cursor is using a custom image.
+---| "arrow"		#		An arrow pointer.
+---| "ibeam"		#		An I-beam, normally used when mousing over editable or selectable text.
+---| "wait"		#		Wait graphic.
+---| "waitarrow"		#		Small wait cursor with an arrow pointer.
+---| "crosshair"		#		Crosshair symbol.
+---| "sizenwse"		#		Double arrow pointing to the top-left and bottom-right.
+---| "sizenesw"		#		Double arrow pointing to the top-right and bottom-left.
+---| "sizewe"		#		Double arrow pointing left and right.
+---| "sizens"		#		Double arrow pointing up and down.
+---| "sizeall"		#		Four-pointed arrow pointing up, down, left, and right.
+---| "no"		#		Slashed circle or crossbones.
+---| "hand"		#		Hand symbol.
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -13,7 +38,7 @@ love.mouse = {}
 --- Gets the current Cursor.
 ---
 --- @return Cursor cursor The current cursor, or nil if no cursor is set.
-function love.mouse.getCursor() return Cursor end
+function love.mouse.getCursor() return {} end
 
 --- Returns the current position of the mouse.
 ---
@@ -36,7 +61,7 @@ function love.mouse.getRelativeMode() return true end
 ---
 --- @param ctype CursorType The type of system cursor to get. 
 --- @return Cursor cursor The Cursor object representing the system cursor type.
-function love.mouse.getSystemCursor(ctype) return Cursor end
+function love.mouse.getSystemCursor(ctype) return {} end
 
 --- Returns the current x-position of the mouse.
 ---
@@ -85,7 +110,7 @@ function love.mouse.isVisible() return true end
 --- @param hoty number The y-coordinate in the ImageData of the cursor's hot spot.
 --- @return Cursor cursor The new Cursor object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.mouse.newCursor(imageData, hotx, hoty) return Cursor end
+function love.mouse.newCursor(imageData, hotx, hoty) return {} end
 
 --- Creates a new hardware Cursor object from an image file or ImageData.
 --- 
@@ -98,7 +123,7 @@ function love.mouse.newCursor(imageData, hotx, hoty) return Cursor end
 --- @param hoty number The y-coordinate in the image of the cursor's hot spot.
 --- @return Cursor cursor The new Cursor object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.mouse.newCursor(filename, hotx, hoty) return Cursor end
+function love.mouse.newCursor(filename, hotx, hoty) return {} end
 
 --- Creates a new hardware Cursor object from an image file or ImageData.
 --- 
@@ -111,7 +136,7 @@ function love.mouse.newCursor(filename, hotx, hoty) return Cursor end
 --- @param hoty number The y-coordinate in the image of the cursor's hot spot.
 --- @return Cursor cursor The new Cursor object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.mouse.newCursor(fileData, hotx, hoty) return Cursor end
+function love.mouse.newCursor(fileData, hotx, hoty) return {} end
 
 --- Sets the current mouse cursor.
 ---

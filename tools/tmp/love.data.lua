@@ -3,6 +3,44 @@
 local love = {}
 love.data = {}
 
+--#region enums
+-- ************************************************************ --
+-- ************************************************************ --
+-- Enumerators
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Compressed data formats.
+--- @alias CompressedDataFormat
+---| "lz4"		#		The LZ4 compression format. Compresses and decompresses very quickly, but the compression ratio is not the best. LZ4-HC is used when compression level 9 is specified. Some benchmarks are available here.
+---| "zlib"		#		The zlib format is DEFLATE-compressed data with a small bit of header data. Compresses relatively slowly and decompresses moderately quickly, and has a decent compression ratio.
+---| "gzip"		#		The gzip format is DEFLATE-compressed data with a slightly larger header than zlib. Since it uses DEFLATE it has the same compression characteristics as the zlib format.
+---| "deflate"		#		Raw DEFLATE-compressed data (no header).
+
+
+--- Return type of various data-returning functions.
+--- @alias ContainerType
+---| "data"		#		Return type is ByteData.
+---| "string"		#		Return type is string.
+
+
+--- Encoding format used to encode or decode data.
+--- @alias EncodeFormat
+---| "base64"		#		Encode/decode data as base64 binary-to-text encoding.
+---| "hex"		#		Encode/decode data as hexadecimal string.
+
+
+--- Hash algorithm of love.data.hash.
+--- @alias HashFunction
+---| "md5"		#		MD5 hash algorithm (16 bytes).
+---| "sha1"		#		SHA1 hash algorithm (20 bytes).
+---| "sha224"		#		SHA2 hash algorithm with message digest size of 224 bits (28 bytes).
+---| "sha256"		#		SHA2 hash algorithm with message digest size of 256 bits (32 bytes).
+---| "sha384"		#		SHA2 hash algorithm with message digest size of 384 bits (48 bytes).
+---| "sha512"		#		SHA2 hash algorithm with message digest size of 512 bits (64 bytes).
+
+
+--#endregion enums
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
@@ -18,7 +56,7 @@ love.data = {}
 --- @param level number The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used.
 --- @return CompressedData or string compressedData CompressedData/string which contains the compressed version of rawstring.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.compress(container, format, rawstring, level) return CompressedData or string end
+function love.data.compress(container, format, rawstring, level) return {} end
 
 --- Compresses a string or data using a specific compression algorithm.
 ---
@@ -28,7 +66,7 @@ function love.data.compress(container, format, rawstring, level) return Compress
 --- @param level number The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used.
 --- @return CompressedData or string compressedData CompressedData/string which contains the compressed version of data.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.compress(container, format, data, level) return CompressedData or string end
+function love.data.compress(container, format, data, level) return {} end
 
 --- Decode Data or a string from any of the EncodeFormats to Data or string.
 ---
@@ -37,7 +75,7 @@ function love.data.compress(container, format, data, level) return CompressedDat
 --- @param sourceString string The raw (encoded) data to decode.
 --- @return ByteData or string decoded ByteData/string which contains the decoded version of source.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.decode(container, format, sourceString) return ByteData or string end
+function love.data.decode(container, format, sourceString) return {} end
 
 --- Decode Data or a string from any of the EncodeFormats to Data or string.
 ---
@@ -46,7 +84,7 @@ function love.data.decode(container, format, sourceString) return ByteData or st
 --- @param sourceData Data The raw (encoded) data to decode.
 --- @return ByteData or string decoded ByteData/string which contains the decoded version of source.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.decode(container, format, sourceData) return ByteData or string end
+function love.data.decode(container, format, sourceData) return {} end
 
 --- Decompresses a CompressedData or previously compressed string or Data object.
 ---
@@ -54,7 +92,7 @@ function love.data.decode(container, format, sourceData) return ByteData or stri
 --- @param compressedData CompressedData The compressed data to decompress.
 --- @return Data or string decompressedData Data/string containing the raw decompressed data.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.decompress(container, compressedData) return Data or string end
+function love.data.decompress(container, compressedData) return {} end
 
 --- Decompresses a CompressedData or previously compressed string or Data object.
 ---
@@ -63,7 +101,7 @@ function love.data.decompress(container, compressedData) return Data or string e
 --- @param compressedString string A string containing data previously compressed with love.data.compress.
 --- @return Data or string decompressedData Data/string containing the raw decompressed data.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.decompress(container, format, compressedString) return Data or string end
+function love.data.decompress(container, format, compressedString) return {} end
 
 --- Decompresses a CompressedData or previously compressed string or Data object.
 ---
@@ -72,7 +110,7 @@ function love.data.decompress(container, format, compressedString) return Data o
 --- @param data Data A Data object containing data previously compressed with love.data.compress.
 --- @return Data or string decompressedData Data/string containing the raw decompressed data.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.decompress(container, format, data) return Data or string end
+function love.data.decompress(container, format, data) return {} end
 
 --- Encode Data or a string to a Data or string in one of the EncodeFormats.
 ---
@@ -82,7 +120,7 @@ function love.data.decompress(container, format, data) return Data or string end
 --- @param linelength number The maximum line length of the output. Only supported for base64, ignored if 0.
 --- @return ByteData or string encoded ByteData/string which contains the encoded version of source.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.encode(container, format, sourceString, linelength) return ByteData or string end
+function love.data.encode(container, format, sourceString, linelength) return {} end
 
 --- Encode Data or a string to a Data or string in one of the EncodeFormats.
 ---
@@ -92,7 +130,7 @@ function love.data.encode(container, format, sourceString, linelength) return By
 --- @param linelength number The maximum line length of the output. Only supported for base64, ignored if 0.
 --- @return ByteData or string encoded ByteData/string which contains the encoded version of source.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.encode(container, format, sourceData, linelength) return ByteData or string end
+function love.data.encode(container, format, sourceData, linelength) return {} end
 
 --- Gets the size in bytes that a given format used with love.data.pack will use.
 --- 
@@ -125,7 +163,7 @@ function love.data.hash(hashFunction, data) return "" end
 --- @param datastring string The byte string to copy.
 --- @return ByteData bytedata The new Data object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.newByteData(datastring) return ByteData end
+function love.data.newByteData(datastring) return {} end
 
 --- Creates a new Data object containing arbitrary bytes.
 --- 
@@ -136,7 +174,7 @@ function love.data.newByteData(datastring) return ByteData end
 --- @param size number The size in bytes of the new Data object.
 --- @return ByteData bytedata The new Data object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.newByteData(Data, offset, size) return ByteData end
+function love.data.newByteData(Data, offset, size) return {} end
 
 --- Creates a new Data object containing arbitrary bytes.
 --- 
@@ -145,7 +183,7 @@ function love.data.newByteData(Data, offset, size) return ByteData end
 --- @param size number The size in bytes of the new Data object.
 --- @return ByteData bytedata The new Data object.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.newByteData(size) return ByteData end
+function love.data.newByteData(size) return {} end
 
 --- Creates a new Data referencing a subsection of an existing Data object.
 ---
@@ -153,7 +191,7 @@ function love.data.newByteData(size) return ByteData end
 --- @param offset number The offset of the subsection to reference, in bytes.
 --- @param size number The size in bytes of the subsection to reference.
 --- @return Data view The new Data view.
-function love.data.newDataView(data, offset, size) return Data end
+function love.data.newDataView(data, offset, size) return {} end
 
 --- Packs (serializes) simple Lua values.
 --- 
@@ -164,7 +202,7 @@ function love.data.newDataView(data, offset, size) return Data end
 --- @param v1 number or boolean or string The first value (number, boolean, or string) to serialize.
 --- @param ... number or boolean or string Additional values to serialize.
 --- @return Data or string data Data/string which contains the serialized data.
-function love.data.pack(container, format, v1, ...) return Data or string end
+function love.data.pack(container, format, v1, ...) return {} end
 
 --- Unpacks (deserializes) a byte-string or Data into simple Lua values.
 --- 
@@ -177,7 +215,7 @@ function love.data.pack(container, format, v1, ...) return Data or string end
 --- @return number or boolean or string ... Additional unpacked values.
 --- @return number index The index of the first unread byte in the data string.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.unpack(format, datastring, pos) return number or boolean or string, number or boolean or string, 0 end
+function love.data.unpack(format, datastring, pos) return {}, {}, 0 end
 
 --- Unpacks (deserializes) a byte-string or Data into simple Lua values.
 --- 
@@ -190,6 +228,6 @@ function love.data.unpack(format, datastring, pos) return number or boolean or s
 --- @return number or boolean or string ... Additional unpacked values.
 --- @return number index The 1-based index of the first unread byte in the Data.
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.data.unpack(format, data, pos) return number or boolean or string, number or boolean or string, 0 end
+function love.data.unpack(format, data, pos) return {}, {}, 0 end
 
 --#endregion functions
