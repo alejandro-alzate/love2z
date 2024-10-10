@@ -41,6 +41,32 @@ love.data = {}
 
 
 --#endregion enums
+--#region types
+-- ************************************************************ --
+-- ************************************************************ --
+-- Types / Objects
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Data object containing arbitrary bytes in an contiguous memory.
+--- 
+--- There are currently no LÖVE functions provided for manipulating the contents of a ByteData, but Data:getPointer can be used with LuaJIT's FFI to access and write to the contents directly.
+--- @class ByteData: Object, Data
+local ByteData = {}
+
+
+--- Represents byte data compressed using a specific algorithm.
+--- 
+--- love.data.decompress can be used to de-compress the data (or love.math.decompress in 0.10.2 or earlier).
+--- @class CompressedData: Data, Object
+local CompressedData = {}
+
+--- Gets the compression format of the CompressedData.
+---
+--- @return CompressedDataFormat format The format of the CompressedData.
+function CompressedData:getFormat() return {} end
+
+--#endregion types
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --

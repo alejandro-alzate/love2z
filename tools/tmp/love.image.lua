@@ -129,6 +129,188 @@ love.image = {}
 
 
 --#endregion enums
+--#region types
+-- ************************************************************ --
+-- ************************************************************ --
+-- Types / Objects
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Represents compressed image data designed to stay compressed in RAM.
+--- 
+--- CompressedImageData encompasses standard compressed texture formats such as  DXT1, DXT5, and BC5 / 3Dc.
+--- 
+--- You can't draw CompressedImageData directly to the screen. See Image for that.
+--- @class CompressedImageData: Data, Object
+local CompressedImageData = {}
+
+--- Gets the width and height of the CompressedImageData.
+---
+--- @return number width The width of the CompressedImageData.
+--- @return number height The height of the CompressedImageData.
+--- @diagnostic disable-next-line: duplicate-set-field
+function CompressedImageData:getDimensions() return 0, 0 end
+--- Gets the width and height of the CompressedImageData.
+---
+--- @param level number A mipmap level. Must be in the range of CompressedImageData:getMipmapCount().
+--- @return number width The width of a specific mipmap level of the CompressedImageData.
+--- @return number height The height of a specific mipmap level of the CompressedImageData.
+--- @diagnostic disable-next-line: duplicate-set-field
+function CompressedImageData:getDimensions(level) return 0, 0 end
+--- Gets the format of the CompressedImageData.
+---
+--- @return CompressedImageFormat format The format of the CompressedImageData.
+function CompressedImageData:getFormat() return {} end
+--- Gets the height of the CompressedImageData.
+---
+--- @return number height The height of the CompressedImageData.
+--- @diagnostic disable-next-line: duplicate-set-field
+function CompressedImageData:getHeight() return 0 end
+--- Gets the height of the CompressedImageData.
+---
+--- @param level number A mipmap level. Must be in the range of CompressedImageData:getMipmapCount().
+--- @return number height The height of a specific mipmap level of the CompressedImageData.
+--- @diagnostic disable-next-line: duplicate-set-field
+function CompressedImageData:getHeight(level) return 0 end
+--- Gets the number of mipmap levels in the CompressedImageData. The base mipmap level (original image) is included in the count.
+---
+--- @return number mipmaps The number of mipmap levels stored in the CompressedImageData.
+function CompressedImageData:getMipmapCount() return 0 end
+--- Gets the width of the CompressedImageData.
+---
+--- @return number width The width of the CompressedImageData.
+--- @diagnostic disable-next-line: duplicate-set-field
+function CompressedImageData:getWidth() return 0 end
+--- Gets the width of the CompressedImageData.
+---
+--- @param level number A mipmap level. Must be in the range of  CompressedImageData:getMipmapCount().
+--- @return number width The width of a specific mipmap level of the CompressedImageData.
+--- @diagnostic disable-next-line: duplicate-set-field
+function CompressedImageData:getWidth(level) return 0 end
+
+--- Raw (decoded) image data.
+--- 
+--- You can't draw ImageData directly to screen. See Image for that.
+--- @class ImageData: Data, Object
+local ImageData = {}
+
+--- Encodes the ImageData and optionally writes it to the save directory.
+---
+--- @param format ImageFormat The format to encode the image as.
+--- @param filename string The filename to write the file to. If nil, no file will be written but the FileData will still be returned.
+--- @return FileData filedata The encoded image as a new FileData object.
+--- @diagnostic disable-next-line: duplicate-set-field
+function ImageData:encode(format, filename) return {} end
+--- Encodes the ImageData and optionally writes it to the save directory.
+---
+--- @param outFile string Name of a file to write encoded data to. The format will be automatically deduced from the file extension.
+--- @return nil
+--- @diagnostic disable-next-line: duplicate-set-field
+function ImageData:encode(outFile) return  end
+--- Encodes the ImageData and optionally writes it to the save directory.
+---
+--- @param outFile string Name of a file to write encoded data to.
+--- @param format ImageFormat The format to encode the image in.
+--- @return nil
+--- @diagnostic disable-next-line: duplicate-set-field
+function ImageData:encode(outFile, format) return  end
+--- Gets the width and height of the ImageData in pixels.
+---
+--- @return number width The width of the ImageData in pixels.
+--- @return number height The height of the ImageData in pixels.
+function ImageData:getDimensions() return 0, 0 end
+--- Gets the height of the ImageData in pixels.
+---
+--- @return number height The height of the ImageData in pixels.
+function ImageData:getHeight() return 0 end
+--- Gets the color of a pixel at a specific position in the image.
+--- 
+--- Valid x and y values start at 0 and go up to image width and height minus 1. Non-integer values are floored.
+--- 
+--- In versions prior to 11.0, color component values were within the range of 0 to 255 instead of 0 to 1.
+---
+--- @param x number The position of the pixel on the x-axis.
+--- @param y number The position of the pixel on the y-axis.
+--- @return number r The red component (0-1).
+--- @return number g The green component (0-1).
+--- @return number b The blue component (0-1).
+--- @return number a The alpha component (0-1).
+function ImageData:getPixel(x, y) return 0, 0, 0, 0 end
+--- Gets the width of the ImageData in pixels.
+---
+--- @return number width The width of the ImageData in pixels.
+function ImageData:getWidth() return 0 end
+--- Transform an image by applying a function to every pixel.
+--- 
+--- This function is a higher-order function. It takes another function as a parameter, and calls it once for each pixel in the ImageData.
+--- 
+--- The passed function is called with six parameters for each pixel in turn. The parameters are numbers that represent the x and y coordinates of the pixel and its red, green, blue and alpha values. The function should return the new red, green, blue, and alpha values for that pixel.
+--- 
+--- function pixelFunction(x, y, r, g, b, a)
+--- 
+---     -- template for defining your own pixel mapping function
+--- 
+---     -- perform computations giving the new values for r, g, b and a
+--- 
+---     -- ...
+--- 
+---     return r, g, b, a
+--- 
+--- end
+--- 
+--- In versions prior to 11.0, color component values were within the range of 0 to 255 instead of 0 to 1.
+---
+--- @param pixelFunction function Function to apply to every pixel.
+--- @param x number The x-axis of the top-left corner of the area within the ImageData to apply the function to.
+--- @param y number The y-axis of the top-left corner of the area within the ImageData to apply the function to.
+--- @param width number The width of the area within the ImageData to apply the function to.
+--- @param height number The height of the area within the ImageData to apply the function to.
+--- @return nil
+function ImageData:mapPixel(pixelFunction, x, y, width, height) return  end
+--- Paste into ImageData from another source ImageData.
+---
+--- @param source ImageData Source ImageData from which to copy.
+--- @param dx number Destination top-left position on x-axis.
+--- @param dy number Destination top-left position on y-axis.
+--- @param sx number Source top-left position on x-axis.
+--- @param sy number Source top-left position on y-axis.
+--- @param sw number Source width.
+--- @param sh number Source height.
+--- @return nil
+function ImageData:paste(source, dx, dy, sx, sy, sw, sh) return  end
+--- Sets the color of a pixel at a specific position in the image.
+--- 
+--- Valid x and y values start at 0 and go up to image width and height minus 1.
+--- 
+--- In versions prior to 11.0, color component values were within the range of 0 to 255 instead of 0 to 1.
+---
+--- @param x number The position of the pixel on the x-axis.
+--- @param y number The position of the pixel on the y-axis.
+--- @param r number The red component (0-1).
+--- @param g number The green component (0-1).
+--- @param b number The blue component (0-1).
+--- @param a number The alpha component (0-1).
+--- @return nil
+--- @diagnostic disable-next-line: duplicate-set-field
+function ImageData:setPixel(x, y, r, g, b, a) return  end
+--- Sets the color of a pixel at a specific position in the image.
+--- 
+--- Valid x and y values start at 0 and go up to image width and height minus 1.
+--- 
+--- In versions prior to 11.0, color component values were within the range of 0 to 255 instead of 0 to 1.
+---
+--- @param x number The position of the pixel on the x-axis.
+--- @param y number The position of the pixel on the y-axis.
+--- @param color table A numerical indexed table with the red, green, blue and alpha values as numbers.
+--- @return nil
+--- @diagnostic disable-next-line: duplicate-set-field
+function ImageData:setPixel(x, y, color) return  end
+--- Gets the pixel format of the ImageData.
+---
+--- @return PixelFormat format The pixel format the ImageData was created with.
+function ImageData:getFormat() return {} end
+
+--#endregion types
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --

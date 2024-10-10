@@ -40,6 +40,132 @@ love.filesystem = {}
 
 
 --#endregion enums
+--#region types
+-- ************************************************************ --
+-- ************************************************************ --
+-- Types / Objects
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Represents a file dropped onto the window.
+--- 
+--- Note that the DroppedFile type can only be obtained from love.filedropped callback, and can't be constructed manually by the user.
+--- @class DroppedFile: File, Object
+local DroppedFile = {}
+
+
+--- Represents a file on the filesystem. A function that takes a file path can also take a File.
+--- @class File: Object
+local File = {}
+
+--- Closes a File.
+---
+--- @return boolean success Whether closing was successful.
+function File:close() return true end
+--- Flushes any buffered written data in the file to the disk.
+---
+--- @return boolean success Whether the file successfully flushed any buffered data to the disk.
+--- @return string err The error string, if an error occurred and the file could not be flushed.
+function File:flush() return true, "" end
+--- Gets the buffer mode of a file.
+---
+--- @return BufferMode mode The current buffer mode of the file.
+--- @return number size The maximum size in bytes of the file's buffer.
+function File:getBuffer() return {}, 0 end
+--- Gets the filename that the File object was created with. If the file object originated from the love.filedropped callback, the filename will be the full platform-dependent file path.
+---
+--- @return string filename The filename of the File.
+function File:getFilename() return "" end
+--- Gets the FileMode the file has been opened with.
+---
+--- @return FileMode mode The mode this file has been opened with.
+function File:getMode() return {} end
+--- Returns the file size.
+---
+--- @return number size The file size in bytes.
+function File:getSize() return 0 end
+--- Gets whether end-of-file has been reached.
+---
+--- @return boolean eof Whether EOF has been reached.
+function File:isEOF() return true end
+--- Gets whether the file is open.
+---
+--- @return boolean open True if the file is currently open, false otherwise.
+function File:isOpen() return true end
+--- Iterate over all the lines in a file.
+---
+--- @return function iterator The iterator (can be used in for loops).
+function File:lines() return function() end end
+--- Open the file for write, read or append.
+---
+--- @param mode FileMode The mode to open the file in.
+--- @return boolean ok True on success, false otherwise.
+--- @return string err The error string if an error occurred.
+function File:open(mode) return true, "" end
+--- Read a number of bytes from a file.
+---
+--- @param bytes number The number of bytes to read.
+--- @return string contents The contents of the read bytes.
+--- @return number size How many bytes have been read.
+--- @diagnostic disable-next-line: duplicate-set-field
+function File:read(bytes) return "", 0 end
+--- Read a number of bytes from a file.
+---
+--- @param container ContainerType What type to return the file's contents as.
+--- @param bytes number The number of bytes to read.
+--- @return FileData or string contents FileData or string containing the read bytes.
+--- @return number size How many bytes have been read.
+--- @diagnostic disable-next-line: duplicate-set-field
+function File:read(container, bytes) return {}, 0 end
+--- Seek to a position in a file
+---
+--- @param pos number The position to seek to
+--- @return boolean success Whether the operation was successful
+function File:seek(pos) return true end
+--- Sets the buffer mode for a file opened for writing or appending. Files with buffering enabled will not write data to the disk until the buffer size limit is reached, depending on the buffer mode.
+--- 
+--- File:flush will force any buffered data to be written to the disk.
+---
+--- @param mode BufferMode The buffer mode to use.
+--- @param size number The maximum size in bytes of the file's buffer.
+--- @return boolean success Whether the buffer mode was successfully set.
+--- @return string errorstr The error string, if the buffer mode could not be set and an error occurred.
+function File:setBuffer(mode, size) return true, "" end
+--- Returns the position in the file.
+---
+--- @return number pos The current position.
+function File:tell() return 0 end
+--- Write data to a file.
+---
+--- @param data string The string data to write.
+--- @param size number How many bytes to write.
+--- @return boolean success Whether the operation was successful.
+--- @return string err The error string if an error occurred.
+--- @diagnostic disable-next-line: duplicate-set-field
+function File:write(data, size) return true, "" end
+--- Write data to a file.
+---
+--- @param data Data The Data object to write.
+--- @param size number How many bytes to write.
+--- @return boolean success Whether the operation was successful.
+--- @return string errorstr The error string if an error occurred.
+--- @diagnostic disable-next-line: duplicate-set-field
+function File:write(data, size) return true, "" end
+
+--- Data representing the contents of a file.
+--- @class FileData: Data, Object
+local FileData = {}
+
+--- Gets the extension of the FileData.
+---
+--- @return string ext The extension of the file the FileData represents.
+function FileData:getExtension() return "" end
+--- Gets the filename of the FileData.
+---
+--- @return string name The name of the file the FileData represents.
+function FileData:getFilename() return "" end
+
+--#endregion types
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --

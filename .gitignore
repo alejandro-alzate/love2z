@@ -1,2 +1,3 @@
 love-api/*
 tools/love-api/*
+#tools/tmp/*

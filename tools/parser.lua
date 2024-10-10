@@ -1,7 +1,7 @@
 --- Parser for the love api table.
 local parser = {}
 
-
+--- parser.cleanName
 do -- Scope fencing and code folding
 	-- Putting all to true is my hacky way to do a `item in dict` python-like trick
 	-- So I don't waste time in a for loop.
@@ -82,6 +82,7 @@ do -- Scope fencing and code folding
 	end
 end
 
+--- parser.makeSection
 do -- Scope fencing and code folding
 	local templates = {
 		asteriskLine = "-- ************************************************************ --",
@@ -107,6 +108,57 @@ do -- Scope fencing and code folding
 		section = section .. "\n"
 		section = section .. "--#endregion " .. name .. "\n"
 		return section
+	end
+end
+
+--- parser.returnlitParser
+do -- Scope fencing and code folding
+	local aliases = {
+		unknown       = "\"Unknown?\"",
+		any           = "\"Any?\"",
+		["nil"]       = "nil",
+		boolean       = "true",
+		["true"]      = "true",
+		["false"]     = "false",
+		number        = "0",
+		integer       = "0",
+		thread        = "coroutine.create(function()end)",
+		table         = "{}",
+		string        = "\"\"",
+		userdata      = "{}",
+		lightuserdata = "{}",
+		["function"]  = "function() end"
+	}
+
+	--- Takes the `returns` table and outputs the literal return inside the function as a string.
+	--- @param t table|nil The table `returns` to parse.
+	--- @return string result The result string.
+	function parser.returnlitParser(t)
+		local result = ""
+
+		if type(t) == "table" then
+			for index, value in ipairs(t) do
+				local name = aliases[value.type] or "{}" --value.type
+				if value.name:match(", ") then
+					--- Bundled arguments suck tbh
+					local parts = {}
+					for part in string.gmatch(value.name, "[^%,]+") do
+						part = part:gsub(" ", "")
+						table.insert(parts, part)
+					end
+
+					for index, value in ipairs(parts) do
+						result = (result == "") and name or (result .. ", " .. name)
+					end
+				else
+					result = (result == "") and name or (result .. ", " .. name)
+				end
+			end
+		else
+			result = ""
+		end
+
+		return result
 	end
 end
 
@@ -214,56 +266,6 @@ function parser.argumentlitParser(t)
 	end
 
 	return result
-end
-
-do -- Scope fencing and code folding
-	local aliases = {
-		unknown       = "\"Unknown?\"",
-		any           = "\"Any?\"",
-		["nil"]       = "nil",
-		boolean       = "true",
-		["true"]      = "true",
-		["false"]     = "false",
-		number        = "0",
-		integer       = "0",
-		thread        = "coroutine.create(function()end)",
-		table         = "{}",
-		string        = "\"\"",
-		userdata      = "{}",
-		lightuserdata = "{}",
-		["function"]  = "function() end"
-	}
-
-	--- Takes the `returns` table and outputs the literal return inside the function as a string.
-	--- @param t table|nil The table `returns` to parse.
-	--- @return string result The result string.
-	function parser.returnlitParser(t)
-		local result = ""
-
-		if type(t) == "table" then
-			for index, value in ipairs(t) do
-				local name = aliases[value.type] or "{}" --value.type
-				if value.name:match(", ") then
-					--- Bundled arguments suck tbh
-					local parts = {}
-					for part in string.gmatch(value.name, "[^%,]+") do
-						part = part:gsub(" ", "")
-						table.insert(parts, part)
-					end
-
-					for index, value in ipairs(parts) do
-						result = (result == "") and name or (result .. ", " .. name)
-					end
-				else
-					result = (result == "") and name or (result .. ", " .. name)
-				end
-			end
-		else
-			result = ""
-		end
-
-		return result
-	end
 end
 
 --- Takes the `arguments` table and outputs the luals syntax as a string.
@@ -387,12 +389,12 @@ function parser.enumConstantParser(t)
 	end
 end
 
---- Takes the table `enum` and returns it as a luals `@alias` strings on a table
+--- Takes the table `enum` and returns it as a luals `@alias` strings on a table.
 --- @param t table The `enum` table.
---- @return table enumTable The luals styled string
+--- @return table enumTable The luals styled string on a table.
 function parser.enumParser(t)
+	local enumTables = {}
 	if type(t) == "table" then
-		local enumTables = {}
 		for index, value in ipairs(t) do
 			local enumStrings = ""
 			local name = value.name
@@ -406,7 +408,54 @@ function parser.enumParser(t)
 		end
 		return enumTables
 	else
-		return {}
+		return enumTables
+	end
+end
+
+--- Takes the table `types` and returns it as a luals `@class` strings on a table.
+--- @param t table The `enum` table.
+--- @return table enumTable The luals styled string on a table.r.makeTypes
+function parser.makeTypes(t)
+	local typeTables = {}
+	if type(t) == "table" then
+		for _, value in ipairs(t) do
+			local desc = value.description:gsub("\n", "\n--- ")
+			local name = value.name
+			local typeString = ""
+
+			local classHeader = ""
+			do -- Scope fencing
+				-- Header. the @class thing.
+				local classDef = parser.generateDeclaration(name, true)
+				local template = "\n--- @class %s"
+				local className = string.format(template, name)
+				if type(value.supertypes) == "table" then
+					for supertypeindex, supertypename in ipairs(value.supertypes) do
+						-- The readable code (and performant one operations
+						-- less than ternary, I shouldn't care but fun rabbit hole nontheless)
+						if supertypeindex == 1 then
+							className = className .. ": " .. supertypename
+						else
+							className = className .. ", " .. supertypename
+						end
+					end
+				end
+				classHeader = "--- " .. desc .. className .. "\n" .. classDef
+				typeString = classHeader
+			end
+
+			-- The methods `Obect:method(args)` style.
+			local methodTable = parser.functionParser(value.functions, name .. ":")
+
+			for _, method in ipairs(methodTable) do
+				typeString = typeString .. "\n" .. method
+			end
+
+			table.insert(typeTables, typeString)
+		end
+		return typeTables
+	else
+		return typeTables
 	end
 end
 
@@ -418,22 +467,23 @@ end
 function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
 	local sketch = ""
 
-	-- Enums
-	local enums = parser.enumParser(t.enums)
-	local enumsString = ""
-	for index, value in ipairs(enums) do
-		enumsString = (enumsString == "") and value or enumsString .. "\n\n" .. value
+	do -- Enums
+		local enums = parser.enumParser(t.enums)
+		local enumsString = ""
+		for index, value in ipairs(enums) do
+			enumsString = (enumsString == "") and value or enumsString .. "\n\n" .. value
+		end
+		sketch = sketch .. parser.makeSection("enums", enumsString, "Enumerators")
 	end
-	sketch = sketch .. parser.makeSection("enums", enumsString, "Enumerators")
 
-
-	-- -- Types
-	-- local types = parser.typesParser(t.functions, "love.")
-	-- local typesString = ""
-	-- for index, value in ipairs(types) do
-	-- 	typesString = typesString == "" and value or typesString .. "\n\n" .. value
-	-- end
-	-- sketch = sketch .. parser.makeSection("functions", typesString, "Functions")
+	do -- Types
+		local types = parser.makeTypes(t.types)
+		local typesString = ""
+		for index, value in ipairs(types) do
+			typesString = typesString == "" and value or typesString .. "\n\n" .. value
+		end
+		sketch = sketch .. parser.makeSection("types", typesString, "Types / Objects")
+	end
 
 	-- Functions
 	local funcs = parser.functionParser(t.functions, funcnamePrepend, funcnameAppend)
@@ -446,56 +496,5 @@ function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
 
 	return sketch
 end
-
-local enums = {
-	{
-		name = 'AlignMode',
-		description = 'Text alignment.',
-		constants = {
-			{
-				name = 'center',
-				description = 'Align text center.',
-			},
-			{
-				name = 'left',
-				description = 'Align text left.',
-			},
-			{
-				name = 'right',
-				description = 'Align text right.',
-			},
-			{
-				name = 'justify',
-				description = 'Align text both left and right.',
-			},
-		},
-	},
-	{
-		name = 'ArcType',
-		description = 'Different types of arcs that can be drawn.',
-		constants = {
-			{
-				name = 'pie',
-				description =
-				'The arc is drawn like a slice of pie, with the arc circle connected to the center at its end-points.',
-			},
-			{
-				name = 'open',
-				description =
-				'The arc circle\'s two end-points are unconnected when the arc is drawn as a line. Behaves like the "closed" arc type when the arc is drawn in filled mode.',
-			},
-			{
-				name = 'closed',
-				description = 'The arc circle\'s two end-points are connected to each other.',
-			},
-		},
-	}
-}
-
-local serpent = require("serpent")
-local enumsTable = parser.enumParser(enums)
---print(enumsTable[2])
-
-print(parser.makeSketch({ enums = enums }))
 
 return parser

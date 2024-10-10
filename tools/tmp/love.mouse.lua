@@ -28,6 +28,23 @@ love.mouse = {}
 
 
 --#endregion enums
+--#region types
+-- ************************************************************ --
+-- ************************************************************ --
+-- Types / Objects
+-- ************************************************************ --
+-- ************************************************************ --
+
+--- Represents a hardware cursor.
+--- @class Cursor: Object
+local Cursor = {}
+
+--- Gets the type of the Cursor.
+---
+--- @return CursorType ctype The type of the Cursor.
+function Cursor:getType() return {} end
+
+--#endregion types
 --#region functions
 -- ************************************************************ --
 -- ************************************************************ --
