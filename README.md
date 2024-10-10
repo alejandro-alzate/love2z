@@ -2,7 +2,7 @@
 Typing hints for the [Zed](https://zed.dev/) Editor
 
 ## To do:
-- [ ] WIP: ~~[love2doc](https://github.com/alejandro-alzate/love2doc)~~ [love-api](https://github.com/love2d-community/love-api) to [love2z](https://github.com/alejandro-alzate/love2z) parser
+- [X] Done: ~~[love2doc](https://github.com/alejandro-alzate/love2doc)~~ [love-api](https://github.com/love2d-community/love-api) to [love2z](https://github.com/alejandro-alzate/love2z) parser
 
 ## Roadmap
 This is the things that have typing hints for the moment

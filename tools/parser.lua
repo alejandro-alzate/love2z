@@ -480,10 +480,10 @@ end
 
 --- Takes a table containing definitions for functions to produce a luals complaint sketch
 --- @param t table The table `definitions` to parse.
---- @param funcnamePrepend? string String to put before the function name..
---- @param funcnameAppend? string String to put after the funtion name.
 --- @return string sketch The luals string
-function parser.makeSketch(t, funcnamePrepend, funcnameAppend)
+function parser.makeSketch(t)
+	assert(type(t) == "table", "Argument 1 is mandatory.")
+	local funcnamePrepend, funcnameAppend = t.funcnamePrepend or "", t.funcnameAppend or ""
 	local sketch = ""
 
 	do -- Enums

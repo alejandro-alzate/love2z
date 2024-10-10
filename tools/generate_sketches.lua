@@ -39,7 +39,13 @@ for jobindex, job in ipairs(jobs) do
 	local sketch       = "--- @meta\n\n"
 	sketch             = sketch .. declaration
 	sketch             = sketch ..
-		parser.makeSketch({ functions = job[1] or {}, enums = job[5] or {}, types = job[6] or {} }, job[2], job[3])
+		parser.makeSketch({
+			functions = job[1] or {},
+			funcnamePrepend = job[2],
+			funcnameAppend = job[3],
+			enums = job[5] or {},
+			types = job[6] or {},
+		})
 	local fhandle, err = io.open(outputFile, "w+")
 	if not fhandle then
 		print(err)
