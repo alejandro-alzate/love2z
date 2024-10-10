@@ -1,103 +1,113 @@
 --- Parser for the love api table.
 local parser = {}
 
-local aliases = {
-	unknown       = "\"Unknown?\"",
-	any           = "\"Any?\"",
-	["nil"]       = "nil",
-	boolean       = "true",
-	["true"]      = "true",
-	["false"]     = "false",
-	number        = "0",
-	integer       = "0",
-	thread        = "coroutine.create(function()end)",
-	table         = "{}",
-	string        = "\"\"",
-	userdata      = "{}",
-	lightuserdata = "{}",
-	["function"]  = "function() end"
-}
 
-local templates = {
-	asteriskLine = "-- ************************************************************ --",
-	sectionLine = "-- %s"
-}
+do -- Scope fencing and code folding
+	-- Putting all to true is my hacky way to do a `item in dict` python-like trick
+	-- So I don't waste time in a for loop.
 
--- Putting all to true is my hacky way to do a `item in dict` python-like trick
--- So I don't waste time in a for loop.
-local reservedKeywords = {
-	["and"] = true,
-	["break"] = true,
-	["do"] = true,
-	["else"] = true,
-	["elseif"] = true,
-	["end"] = true,
-	["false"] = true,
-	["for"] = true,
-	["function"] = true,
-	["if"] = true,
-	["in"] = true,
-	["local"] = true,
-	["nil"] = true,
-	["not"] = true,
-	["or"] = true,
-	["repeat"] = true,
-	["return"] = true,
-	["then"] = true,
-	["true"] = true,
-	["until"] = true,
-	["while"] = true,
-	["goto"] = true,
-	["global"] = true,
-	["_"] = true,
-}
+	local reservedKeywords = {
+		["and"] = true,
+		["break"] = true,
+		["do"] = true,
+		["else"] = true,
+		["elseif"] = true,
+		["end"] = true,
+		["false"] = true,
+		["for"] = true,
+		["function"] = true,
+		["if"] = true,
+		["in"] = true,
+		["local"] = true,
+		["nil"] = true,
+		["not"] = true,
+		["or"] = true,
+		["repeat"] = true,
+		["return"] = true,
+		["then"] = true,
+		["true"] = true,
+		["until"] = true,
+		["while"] = true,
+		["goto"] = true,
+		["global"] = true,
+		["_"] = true,
+	}
 
-local coreFunctions = {
-	["print"] = true,
-	["assert"] = true,
-	["error"] = true,
-	["pcall"] = true,
-	["xpcall"] = true,
-	["tostring"] = true,
-	["tonumber"] = true,
-	["type"] = true,
-	["collectgarbage"] = true,
-	["getmetatable"] = true,
-	["setmetatable"] = true,
-	["rawequal"] = true,
-	["rawlen"] = true,
-	["rawget"] = true,
-	["rawset"] = true,
-}
+	local coreFunctions = {
+		["print"] = true,
+		["assert"] = true,
+		["error"] = true,
+		["pcall"] = true,
+		["xpcall"] = true,
+		["tostring"] = true,
+		["tonumber"] = true,
+		["type"] = true,
+		["collectgarbage"] = true,
+		["getmetatable"] = true,
+		["setmetatable"] = true,
+		["rawequal"] = true,
+		["rawlen"] = true,
+		["rawget"] = true,
+		["rawset"] = true,
+	}
 
-local coreLibraries = {
-	["io"] = true,
-	["string"] = true,
-	["table"] = true,
-	["math"] = true,
-	["os"] = true,
-	["debug"] = true,
-	["package"] = true,
-}
+	local coreLibraries = {
+		["io"] = true,
+		["string"] = true,
+		["table"] = true,
+		["math"] = true,
+		["os"] = true,
+		["debug"] = true,
+		["package"] = true,
+	}
 
---- Cleans names.
----
---- where inbuilt functions, libraries or reserved keywords are prepended with an
---- double underscore with k, f, l in between to signal what triggered the clean.
----
---- This is to avoid collisions with Lua keywords and prevent issues with
---- functions being named the same as core functions.
---- @param name string The name of the function to clean.
---- @return string clean The cleaned name.
-function parser.cleanName(name)
-	if reservedKeywords[name] then
-		return "_k_" .. name
-	elseif coreFunctions[name] then
-		return "_f_" .. name
-	elseif coreLibraries[name] then
-		return "_l_" .. name
+	--- Cleans names.
+	---
+	--- where inbuilt functions, libraries or reserved keywords are prepended with an
+	--- double underscore with k, f, l in between to signal what triggered the clean.
+	---
+	--- This is to avoid collisions with Lua keywords and prevent issues with
+	--- functions being named the same as core functions.
+	--- @param name string The name of the function to clean.
+	--- @return string clean The cleaned name.
+	function parser.cleanName(name)
+		if reservedKeywords[name] then
+			return "_k_" .. name
+		elseif coreFunctions[name] then
+			return "_f_" .. name
+		elseif coreLibraries[name] then
+			return "_l_" .. name
+		end
+		return name
 	end
-	return name
+end
+
+do -- Scope fencing and code folding
+	local templates = {
+		asteriskLine = "-- ************************************************************ --",
+		sectionLine = "-- %s"
+	}
+
+	--- Makes a section named `name` and puts the content on `content`.
+	--- @param name string The name of the section and header if not given on `headerName`.
+	--- @param content string The content of the section.
+	--- @param headerName? string The header name if not provided `name` will be used.
+	--- @return string section
+	function parser.makeSection(name, content, headerName)
+		local section = ""
+		section = section .. "--#region " .. name .. "\n"
+		section = section .. (templates.asteriskLine or "") .. "\n"
+		section = section .. (templates.asteriskLine or "") .. "\n"
+		section = section .. "-- " .. (headerName or name) .. "\n"
+		section = section .. (templates.asteriskLine or "") .. "\n"
+		section = section .. (templates.asteriskLine or "") .. "\n"
+		section = section .. "\n"
+		section = section .. content
+		section = section .. "\n"
+		section = section .. "\n"
+		section = section .. "--#endregion " .. name .. "\n"
+		return section
+	end
 end
 
 --- Generates a recursive declaration for the provided path.
@@ -136,27 +146,6 @@ function parser.generateDeclaration(path, is_local)
 	end
 
 	return declaration
-end
-
---- Makes a section named `name` and puts the content on `content`.
---- @param name string The name of the section and header if not given on `headerName`.
---- @param content string The content of the section.
---- @param headerName? string The header name if not provided `name` will be used.
---- @return string section
-function parser.makeSection(name, content, headerName)
-	local section = ""
-	section = section .. "--#region " .. name .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. "-- " .. (headerName or name) .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. (templates.asteriskLine or "") .. "\n"
-	section = section .. "\n"
-	section = section .. content
-	section = section .. "\n"
-	section = section .. "\n"
-	section = section .. "--#endregion " .. name .. "\n"
-	return section
 end
 
 --- Takes the `returns` table and outputs the luals syntax as a string.
@@ -227,35 +216,54 @@ function parser.argumentlitParser(t)
 	return result
 end
 
---- Takes the `returns` table and outputs the literal return inside the function as a string.
---- @param t table|nil The table `returns` to parse.
---- @return string result The result string.
-function parser.returnlitParser(t)
-	local result = ""
+do -- Scope fencing and code folding
+	local aliases = {
+		unknown       = "\"Unknown?\"",
+		any           = "\"Any?\"",
+		["nil"]       = "nil",
+		boolean       = "true",
+		["true"]      = "true",
+		["false"]     = "false",
+		number        = "0",
+		integer       = "0",
+		thread        = "coroutine.create(function()end)",
+		table         = "{}",
+		string        = "\"\"",
+		userdata      = "{}",
+		lightuserdata = "{}",
+		["function"]  = "function() end"
+	}
 
-	if type(t) == "table" then
-		for index, value in ipairs(t) do
-			local name = aliases[value.type] or "{}" --value.type
-			if value.name:match(", ") then
-				--- Bundled arguments suck tbh
-				local parts = {}
-				for part in string.gmatch(value.name, "[^%,]+") do
-					part = part:gsub(" ", "")
-					table.insert(parts, part)
-				end
+	--- Takes the `returns` table and outputs the literal return inside the function as a string.
+	--- @param t table|nil The table `returns` to parse.
+	--- @return string result The result string.
+	function parser.returnlitParser(t)
+		local result = ""
 
-				for index, value in ipairs(parts) do
+		if type(t) == "table" then
+			for index, value in ipairs(t) do
+				local name = aliases[value.type] or "{}" --value.type
+				if value.name:match(", ") then
+					--- Bundled arguments suck tbh
+					local parts = {}
+					for part in string.gmatch(value.name, "[^%,]+") do
+						part = part:gsub(" ", "")
+						table.insert(parts, part)
+					end
+
+					for index, value in ipairs(parts) do
+						result = (result == "") and name or (result .. ", " .. name)
+					end
+				else
 					result = (result == "") and name or (result .. ", " .. name)
 				end
-			else
-				result = (result == "") and name or (result .. ", " .. name)
 			end
+		else
+			result = ""
 		end
-	else
-		result = ""
-	end
 
-	return result
+		return result
+	end
 end
 
 --- Takes the `arguments` table and outputs the luals syntax as a string.
