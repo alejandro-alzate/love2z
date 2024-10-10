@@ -1,8 +1,1 @@
-{
-    "diagnostics.globals": [
-        "love"
-    ],
-    "diagnostics.disable": [
-        "missing-parameter"
-    ]
-}
+{}
