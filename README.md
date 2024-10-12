@@ -2,102 +2,103 @@
 Typing hints for the [Zed](https://zed.dev/) Editor
 
 ## To do:
+- [ ] Zed extesion expansion snippets.
 - [X] Done: ~~[love2doc](https://github.com/alejandro-alzate/love2doc)~~ [love-api](https://github.com/love2d-community/love-api) to [love2z](https://github.com/alejandro-alzate/love2z) parser
 
 ## Roadmap
 This is the things that have typing hints for the moment
 
-- [ ] [love](./src/love.lua)
+- [X] [love](./src/love.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.audio](./src/love.audio.lua)
+- [X] [love.audio](./src/love.audio.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.data](./src/love.data.lua)
+- [X] [love.data](./src/love.data.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.event](./src/love.event.lua)
+- [X] [love.event](./src/love.event.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.filesystem](./src/love.filesystem.lua)
+- [X] [love.filesystem](./src/love.filesystem.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.font](./src/love.font.lua)
+- [X] [love.font](./src/love.font.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.graphics](./src/love.graphics.lua)
+- [X] [love.graphics](./src/love.graphics.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.image](./src/love.image.lua)
+- [X] [love.image](./src/love.image.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.joystick](./src/love.joystick.lua)
+- [X] [love.joystick](./src/love.joystick.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.keyboard](./src/love.keyboard.lua)
+- [X] [love.keyboard](./src/love.keyboard.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.math](./src/love.math.lua)
+- [X] [love.math](./src/love.math.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.mouse](./src/love.mouse.lua)
+- [X] [love.mouse](./src/love.mouse.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.physics](./src/love.physics.lua)
+- [X] [love.physics](./src/love.physics.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.sound](./src/love.sound.lua)
+- [X] [love.sound](./src/love.sound.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.system](./src/love.system.lua)
+- [X] [love.system](./src/love.system.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.thread](./src/love.thread.lua)
+- [X] [love.thread](./src/love.thread.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.timer](./src/love.timer.lua)
+- [X] [love.timer](./src/love.timer.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.touch](./src/love.touch.lua)
+- [X] [love.touch](./src/love.touch.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.video](./src/love.video.lua)
+- [X] [love.video](./src/love.video.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [love.window](./src/love.window.lua)
+- [X] [love.window](./src/love.window.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [lua-enet](./src/lua-enet.lua)
+- [X] [lua-enet](./src/lua-enet.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [luasocket](./src/luasocket.lua)
+- [X] [luasocket](./src/luasocket.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
-- [ ] [uft8](./src/uft8.lua)
+- [X] [uft8](./src/uft8.lua)
 	- [X] Enums
-	- [ ] Types
+	- [X] Types
 	- [X] Functions
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L2SNDWO)

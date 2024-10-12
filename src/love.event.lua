@@ -11,7 +11,7 @@ love.event = {}
 -- ************************************************************ --
 
 --- Arguments to love.event.push() and the like.
---- 
+---
 --- Since 0.8.0, event names are no longer abbreviated.
 --- @alias Event
 ---| "focus"			#		Window focus gained or lost
@@ -74,7 +74,7 @@ love.event = {}
 --- Clears the event queue.
 ---
 --- @return nil
-function love.event.clear() return  end
+function love.event.clear() return end
 
 --- Returns an iterator for messages in the event queue.
 ---
@@ -82,18 +82,18 @@ function love.event.clear() return  end
 function love.event.poll() return function() end end
 
 --- Pump events into the event queue.
---- 
+---
 --- This is a low-level function, and is usually not called by the user, but by love.run.
---- 
+---
 --- Note that this does need to be called for any OS to think you're still running,
---- 
+---
 --- and if you want to handle OS-generated events at all (think callbacks).
 ---
 --- @return nil
-function love.event.pump() return  end
+function love.event.pump() return end
 
 --- Adds an event to the event queue.
---- 
+---
 --- From 0.10.0 onwards, you may pass an arbitrary amount of arguments with this function, though the default callbacks don't ever use more than six.
 ---
 --- @param n Event The name of the event.
@@ -105,25 +105,25 @@ function love.event.pump() return  end
 --- @param f Variant Sixth event argument.
 --- @param ... Variant Further event arguments may follow.
 --- @return nil
-function love.event.push(n, a, b, c, d, e, f, ...) return  end
+function love.event.push(n, a, b, c, d, e, f, ...) return end
 
 --- Adds the quit event to the queue.
---- 
+---
 --- The quit event is a signal for the event handler to close LÖVE. It's possible to abort the exit process with the love.quit callback.
 ---
 --- @param exitstatus number The program exit status to use when closing the application.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.event.quit(exitstatus) return  end
+function love.event.quit(exitstatus) return end
 
 --- Adds the quit event to the queue.
---- 
+---
 --- The quit event is a signal for the event handler to close LÖVE. It's possible to abort the exit process with the love.quit callback.
 ---
---- @param 'restart' string Tells the default love.run to exit and restart the game without relaunching the executable.
+--- @param restart string Tells the default love.run to exit and restart the game without relaunching the executable.
 --- @return nil
 --- @diagnostic disable-next-line: duplicate-set-field
-function love.event.quit(restart) return  end
+function love.event.quit(restart) return end
 
 --- Like love.event.poll(), but blocks until there is an event in the queue.
 ---
@@ -135,6 +135,6 @@ function love.event.quit(restart) return  end
 --- @return Variant e Fifth event argument.
 --- @return Variant f Sixth event argument.
 --- @return Variant ... Further event arguments may follow.
-function love.event.wait() return {}, {}, {}, {}, {}, {}, {}, {} end
+function love.event.wait() return "directorydropped", {}, {}, {}, {}, {}, {}, {} end
 
 --#endregion functions

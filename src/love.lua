@@ -19,6 +19,12 @@ local love = {}
 -- ************************************************************ --
 -- ************************************************************ --
 
+--- The Variant type is not a real lua type, but instead indicates what lua values LÖVE can store internally. It is used in love.thread and love.event. Indeed, as it is a "virtual" type, it has no specific representation in lua, and no methods.
+--- @class Variant: any
+
+--- Creates a scalar cdata object for the given ct. The cdata object is initialized with init using the "cast" variant of the C type conversion rules.
+--- @class cdata
+
 --- The superclass of all data.
 --- @class Data: Object
 local Data = {}
@@ -27,20 +33,24 @@ local Data = {}
 ---
 --- @return Data clone The new copy.
 function Data:clone() return {} end
+
 --- Gets an FFI pointer to the Data.
---- 
+---
 --- This function should be preferred instead of Data:getPointer because the latter uses light userdata which can't store more all possible memory addresses on some new ARM64 architectures, when LuaJIT is used.
 ---
 --- @return cdata pointer A raw void* pointer to the Data, or nil if FFI is unavailable.
 function Data:getFFIPointer() return {} end
+
 --- Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 ---
---- @return light userdata pointer A raw pointer to the Data.
+--- @return lightuserdata pointer A raw pointer to the Data.
 function Data:getPointer() return {} end
+
 --- Gets the Data's size in bytes.
 ---
 --- @return number size The size of the Data in bytes.
 function Data:getSize() return 0 end
+
 --- Gets the full Data as a string.
 ---
 --- @return string data The raw data.
@@ -51,15 +61,17 @@ function Data:getString() return "" end
 local Object = {}
 
 --- Destroys the object's Lua reference. The object will be completely deleted if it's not referenced by any other LÖVE object or thread.
---- 
+---
 --- This method can be used to immediately clean up resources without waiting for Lua's garbage collector.
 ---
 --- @return boolean success True if the object was released by this call, false if it had been previously released.
 function Object:release() return true end
+
 --- Gets the type of the object as a string.
 ---
 --- @return string type The type as a string.
 function Object:type() return "" end
+
 --- Checks whether an object is of a certain type. If the object has the type with the specified name in its hierarchy, this function will return true.
 ---
 --- @param name string The name of the type to check for.
@@ -83,7 +95,7 @@ function Object:typeOf(name) return true end
 function lovegetVersion() return 0, 0, 0, "" end
 
 --- Gets whether LÖVE displays warnings when using deprecated functionality. It is disabled by default in fused mode, and enabled by default otherwise.
---- 
+---
 --- When deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.
 ---
 --- @return boolean enabled Whether deprecation output is enabled.
@@ -106,11 +118,11 @@ function loveisVersionCompatible(version) return true end
 function loveisVersionCompatible(major, minor, revision) return true end
 
 --- Sets whether LÖVE displays warnings when using deprecated functionality. It is disabled by default in fused mode, and enabled by default otherwise.
---- 
+---
 --- When deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.
 ---
 --- @param enable boolean Whether to enable or disable deprecation output.
 --- @return nil
-function lovesetDeprecationOutput(enable) return  end
+function lovesetDeprecationOutput(enable) return end
 
 --#endregion functions

@@ -49,14 +49,14 @@ love.data = {}
 -- ************************************************************ --
 
 --- Data object containing arbitrary bytes in an contiguous memory.
---- 
+---
 --- There are currently no LÖVE functions provided for manipulating the contents of a ByteData, but Data:getPointer can be used with LuaJIT's FFI to access and write to the contents directly.
 --- @class ByteData: Object, Data
 local ByteData = {}
 
 
 --- Represents byte data compressed using a specific algorithm.
---- 
+---
 --- love.data.decompress can be used to de-compress the data (or love.math.decompress in 0.10.2 or earlier).
 --- @class CompressedData: Data, Object
 local CompressedData = {}
@@ -64,7 +64,7 @@ local CompressedData = {}
 --- Gets the compression format of the CompressedData.
 ---
 --- @return CompressedDataFormat format The format of the CompressedData.
-function CompressedData:getFormat() return {} end
+function CompressedData:getFormat() return "deflate" end
 
 --#endregion types
 --#region functions
@@ -159,7 +159,7 @@ function love.data.encode(container, format, sourceString, linelength) return {}
 function love.data.encode(container, format, sourceData, linelength) return {} end
 
 --- Gets the size in bytes that a given format used with love.data.pack will use.
---- 
+---
 --- This function behaves the same as Lua 5.3's string.packsize.
 ---
 --- @param format string A string determining how the values are packed. Follows the rules of Lua 5.3's string.pack format strings.
@@ -183,7 +183,7 @@ function love.data.hash(hashFunction, string) return "" end
 function love.data.hash(hashFunction, data) return "" end
 
 --- Creates a new Data object containing arbitrary bytes.
---- 
+---
 --- Data:getPointer along with LuaJIT's FFI can be used to manipulate the contents of the ByteData object after it has been created.
 ---
 --- @param datastring string The byte string to copy.
@@ -192,7 +192,7 @@ function love.data.hash(hashFunction, data) return "" end
 function love.data.newByteData(datastring) return {} end
 
 --- Creates a new Data object containing arbitrary bytes.
---- 
+---
 --- Data:getPointer along with LuaJIT's FFI can be used to manipulate the contents of the ByteData object after it has been created.
 ---
 --- @param Data Data The existing Data object to copy.
@@ -203,7 +203,7 @@ function love.data.newByteData(datastring) return {} end
 function love.data.newByteData(Data, offset, size) return {} end
 
 --- Creates a new Data object containing arbitrary bytes.
---- 
+---
 --- Data:getPointer along with LuaJIT's FFI can be used to manipulate the contents of the ByteData object after it has been created.
 ---
 --- @param size number The size in bytes of the new Data object.
@@ -220,7 +220,7 @@ function love.data.newByteData(size) return {} end
 function love.data.newDataView(data, offset, size) return {} end
 
 --- Packs (serializes) simple Lua values.
---- 
+---
 --- This function behaves the same as Lua 5.3's string.pack.
 ---
 --- @param container ContainerType What type to return the encoded data as.
@@ -231,7 +231,7 @@ function love.data.newDataView(data, offset, size) return {} end
 function love.data.pack(container, format, v1, ...) return {} end
 
 --- Unpacks (deserializes) a byte-string or Data into simple Lua values.
---- 
+---
 --- This function behaves the same as Lua 5.3's string.unpack.
 ---
 --- @param format string A string determining how the values were packed. Follows the rules of Lua 5.3's string.pack format strings.
@@ -244,7 +244,7 @@ function love.data.pack(container, format, v1, ...) return {} end
 function love.data.unpack(format, datastring, pos) return {}, {}, 0 end
 
 --- Unpacks (deserializes) a byte-string or Data into simple Lua values.
---- 
+---
 --- This function behaves the same as Lua 5.3's string.unpack.
 ---
 --- @param format string A string determining how the values were packed. Follows the rules of Lua 5.3's string.pack format strings.
