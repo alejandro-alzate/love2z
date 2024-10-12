@@ -19,10 +19,16 @@ local love = {}
 -- ************************************************************ --
 -- ************************************************************ --
 
+-- This boy is basically the `any` primitive type from zed.
+
 --- The Variant type is not a real lua type, but instead indicates what lua values LÖVE can store internally. It is used in love.thread and love.event. Indeed, as it is a "virtual" type, it has no specific representation in lua, and no methods.
+---
+--- ### Note:
+--- For compatibility reasons this type is binded to the `any` type.
+--- @see any
 --- @class Variant: any
 
---- Creates a scalar cdata object for the given ct. The cdata object is initialized with init using the "cast" variant of the C type conversion rules.
+--- FFI C Data struct.
 --- @class cdata
 
 --- The superclass of all data.

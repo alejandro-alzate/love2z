@@ -71,6 +71,8 @@ do -- Scope fencing and code folding
 	--- @param name string The name of the function to clean.
 	--- @return string clean The cleaned name.
 	function parser.cleanName(name)
+		name = name:gsub("\'", "")
+		name = name:gsub("\"", "")
 		if reservedKeywords[name] then
 			return "_k_" .. name
 		elseif coreFunctions[name] then
