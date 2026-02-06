@@ -1,5 +1,5 @@
-id = "love2dz"
-name = "Love2DZ"
+id = "love2d"
+name = "Love2D"
 description = "Typing hints and autocompletion for Love2D game framework"
 version = "0.1.0"
 schema_version = 1
