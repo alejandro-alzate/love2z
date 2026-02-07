@@ -34,11 +34,13 @@ local GlyphData = {}
 ---
 --- @return number advance Glyph advance.
 function GlyphData:getAdvance() return 0 end
+
 --- Gets glyph bearing.
 ---
 --- @return number bx Glyph bearing X.
 --- @return number by Glyph bearing Y.
 function GlyphData:getBearing() return 0, 0 end
+
 --- Gets glyph bounding box.
 ---
 --- @return number x Glyph position x.
@@ -46,27 +48,33 @@ function GlyphData:getBearing() return 0, 0 end
 --- @return number width Glyph width.
 --- @return number height Glyph height.
 function GlyphData:getBoundingBox() return 0, 0, 0, 0 end
+
 --- Gets glyph dimensions.
 ---
 --- @return number width Glyph width.
 --- @return number height Glyph height.
 function GlyphData:getDimensions() return 0, 0 end
+
 --- Gets glyph pixel format.
 ---
 --- @return PixelFormat format Glyph pixel format.
 function GlyphData:getFormat() return {} end
+
 --- Gets glyph number.
 ---
 --- @return number glyph Glyph number.
 function GlyphData:getGlyph() return 0 end
+
 --- Gets glyph string.
 ---
 --- @return string glyph Glyph string.
 function GlyphData:getGlyphString() return "" end
+
 --- Gets glyph height.
 ---
 --- @return number height Glyph height.
 function GlyphData:getHeight() return 0 end
+
 --- Gets glyph width.
 ---
 --- @return number width Glyph width.
@@ -80,38 +88,46 @@ local Rasterizer = {}
 ---
 --- @return number advance Font advance.
 function Rasterizer:getAdvance() return 0 end
+
 --- Gets ascent height.
 ---
 --- @return number height Ascent height.
 function Rasterizer:getAscent() return 0 end
+
 --- Gets descent height.
 ---
 --- @return number height Descent height.
 function Rasterizer:getDescent() return 0 end
+
 --- Gets number of glyphs in font.
 ---
 --- @return number count Glyphs count.
 function Rasterizer:getGlyphCount() return 0 end
+
 --- Gets glyph data of a specified glyph.
 ---
 --- @param glyph string Glyph
 --- @return GlyphData glyphData Glyph data
 --- @diagnostic disable-next-line: duplicate-set-field
 function Rasterizer:getGlyphData(glyph) return {} end
+
 --- Gets glyph data of a specified glyph.
 ---
 --- @param glyphNumber number Glyph number
 --- @return GlyphData glyphData Glyph data
 --- @diagnostic disable-next-line: duplicate-set-field
 function Rasterizer:getGlyphData(glyphNumber) return {} end
+
 --- Gets font height.
 ---
 --- @return number height Font height
 function Rasterizer:getHeight() return 0 end
+
 --- Gets line height of a font.
 ---
 --- @return number height Line height of a font.
 function Rasterizer:getLineHeight() return 0 end
+
 --- Checks if font contains specified glyphs.
 ---
 --- @param glyph1 string or number Glyph
@@ -151,7 +167,7 @@ function love.font.newBMFontRasterizer(fileName, glyphs, dpiscale) return {} end
 --- @param rasterizer Rasterizer The Rasterizer containing the font.
 --- @param glyph number The character code of the glyph.
 --- @return nil
-function love.font.newGlyphData(rasterizer, glyph) return  end
+function love.font.newGlyphData(rasterizer, glyph) return end
 
 --- Creates a new Image Rasterizer.
 ---

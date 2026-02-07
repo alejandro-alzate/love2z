@@ -1,0 +1,7 @@
+id = "love2z"
+name = "Love2Z"
+description = "Typing hints and autocompletion for Love2D game framework"
+version = "0.1.0"
+schema_version = 1
+authors = ["alejandro-alzate <https://github.com/alejandro-alzate>","t1gu1 <https://github.com/t1gu1>"]
+repository = "https://github.com/t1gu1/love2Dz" 
